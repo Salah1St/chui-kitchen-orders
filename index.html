@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="description" content="จัดรายการสั่งวัตถุดิบ เลือกสินค้า ปรับจำนวนทีละ 0.5 โล และส่งออกรายการเป็นข้อความ">
+  <title>รายการสั่งวัตถุดิบ · Chui Kitchen</title>
+  <style>
+    /* Standalone, offline ADS semantic-token snapshot. No remote assets required.
+       Project layout and component decisions: design_system.md / design_token.md. */
+    :root {
+      color-scheme: light;
+      --ds-surface:#fff; --ds-surface-sunken:#f8f8f8; --ds-surface-overlay:#fff;
+      --ds-text:#292a2e; --ds-text-subtle:#505258; --ds-text-subtlest:#6b6e76;
+      --ds-border:#0b120e24; --ds-border-input:#8c8f97; --ds-border-focused:#4688ec;
+      --ds-background-brand-bold:#1868db; --ds-background-brand-bold-hovered:#1558bc;
+      --ds-background-selected:#e9f2fe; --ds-text-selected:#1868db;
+      --ds-background-neutral:#0515240f; --ds-background-neutral-hovered:#0b120e14;
+      --ds-background-success:#efffd6; --ds-text-success:#4c6b1f;
+      --ds-text-inverse:#fff; --ds-blanket:#091e427a;
+      --ds-radius-medium:6px; --ds-radius-large:8px; --ds-radius-xlarge:12px;
+      --ds-space-100:8px; --ds-space-200:16px; --ds-space-300:24px; --ds-space-400:32px;
+      --app-font:"Atlassian Sans","Noto Sans Thai",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+      --app-shadow:0 8px 24px #091e421f,0 0 1px #091e4240;
+    }
+    :root[data-theme="dark"] {
+      color-scheme:dark;
+      --ds-surface:#1f1f21; --ds-surface-sunken:#18191a; --ds-surface-overlay:#2b2c2f;
+      --ds-text:#e2e3e5; --ds-text-subtle:#b4b7bd; --ds-text-subtlest:#a0a3ab;
+      --ds-border:#a6c5e229; --ds-border-input:#8c8f97; --ds-border-focused:#85b8ff;
+      --ds-background-brand-bold:#669df1; --ds-background-brand-bold-hovered:#8fb8f6;
+      --ds-background-selected:#123263; --ds-text-selected:#8fb8f6;
+      --ds-background-neutral:#bcd6f012; --ds-background-neutral-hovered:#bcd6f020;
+      --ds-background-success:#28311b; --ds-text-success:#d3f1a7;
+      --ds-text-inverse:#1f1f21; --ds-blanket:#0009;
+      --app-shadow:0 8px 24px #0006,0 0 1px #ffffff40;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:84px}
+    body{margin:0;background:var(--ds-surface);color:var(--ds-text);font:14px/1.55 var(--app-font)}
+    button,input,textarea{font:inherit} button,a,input,textarea{-webkit-tap-highlight-color:transparent}
+    button{cursor:pointer} button:disabled{cursor:default;opacity:.45}
+    button,a,input,textarea{outline-offset:3px} :focus-visible{outline:2px solid var(--ds-border-focused)}
+    a{color:inherit;text-decoration:none} button svg,a svg{flex-shrink:0} svg{width:20px;height:20px;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .skip{position:fixed;top:-80px;left:16px;padding:12px;background:var(--ds-surface-overlay);z-index:100} .skip:focus{top:8px}
+    .topbar{height:64px;border-bottom:1px solid var(--ds-border);display:flex;align-items:center;justify-content:space-between;padding:0 26px;position:sticky;top:0;background:var(--ds-surface);z-index:20;gap:16px}
+    .brand{display:flex;align-items:center;gap:11px;font-size:16px;font-weight:750;letter-spacing:-.3px}.brand-mark{display:grid;place-items:center;background:var(--ds-background-brand-bold);color:var(--ds-text-inverse);border-radius:8px;width:32px;height:32px;font-size:20px;font-weight:800}
+    .top-left,.top-right{display:flex;align-items:center;gap:24px}.product-label{padding-left:24px;border-left:1px solid var(--ds-border);color:var(--ds-text-subtle);font-size:13px}.top-right{gap:12px}.session-note{color:var(--ds-text-subtlest);font-size:12px;display:flex;align-items:center;gap:6px}.session-note svg{width:15px;height:15px}
+    .icon-button{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--ds-border);background:var(--ds-surface);border-radius:6px;color:var(--ds-text-subtle)}.icon-button:hover{background:var(--ds-background-neutral-hovered)}
+    .shell{display:grid;grid-template-columns:224px minmax(0,1fr);min-height:calc(100vh - 64px)}
+    .sidebar{border-right:1px solid var(--ds-border);padding:28px 14px;position:sticky;top:64px;height:calc(100vh - 64px);display:flex;flex-direction:column;gap:26px;background:var(--ds-surface-sunken)}
+    .workspace{display:flex;gap:10px;align-items:center;padding:0 10px}.workspace-icon{width:36px;height:36px;background:var(--ds-surface);border:1px solid var(--ds-border);border-radius:8px;display:grid;place-items:center;color:var(--ds-text-selected)}.workspace strong{display:block;font-size:13px}.workspace small{display:block;font-size:11px;color:var(--ds-text-subtlest)}
+    .nav-label{font-size:11px;font-weight:650;color:var(--ds-text-subtlest);padding:0 12px;margin:0 0 9px;letter-spacing:.5px}.nav-list{display:flex;flex-direction:column;gap:4px}.nav-link{padding:10px 12px;display:flex;align-items:center;gap:10px;font-size:13px;border-radius:6px;color:var(--ds-text-subtle)}.nav-link:hover{background:var(--ds-background-neutral-hovered)}.nav-link.active{background:var(--ds-background-selected);color:var(--ds-text-selected);font-weight:650}.nav-link svg{width:18px;height:18px}.nav-count{margin-left:auto;font-size:11px;border-radius:4px;padding:0 5px;background:var(--ds-background-neutral);font-variant-numeric:tabular-nums}
+    .sidebar-bottom{margin-top:auto;border-top:1px solid var(--ds-border);padding:18px 10px 0;color:var(--ds-text-subtlest);font-size:12px}.sidebar-bottom p{margin:5px 0}.sidebar-bottom strong{color:var(--ds-text-subtle);font-size:12px}
+    main{padding:28px 32px 48px;min-width:0;max-width:1700px;width:100%;margin:0 auto;align-self:start}.breadcrumb{font-size:12px;color:var(--ds-text-subtlest);display:flex;align-items:center;gap:9px;margin-bottom:18px}.breadcrumb svg{width:12px;height:12px}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}h1{font-size:26px;line-height:1.4;letter-spacing:-.65px;margin:0 0 5px;font-weight:750}.subtitle{color:var(--ds-text-subtle);margin:0;font-size:13px}.heading-actions{display:flex;gap:8px;flex-shrink:0}
+    .button{border:1px solid var(--ds-border);background:var(--ds-surface);color:var(--ds-text);border-radius:6px;min-height:38px;padding:7px 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:550;white-space:nowrap}.button svg{width:17px;height:17px}.button:hover:not(:disabled){background:var(--ds-background-neutral-hovered)}.button.primary{background:var(--ds-background-brand-bold);color:var(--ds-text-inverse);border-color:transparent}.button.primary:hover:not(:disabled){background:var(--ds-background-brand-bold-hovered)}.button.quiet{border-color:transparent;background:transparent;color:var(--ds-text-subtle)}.button.quiet:hover:not(:disabled){background:var(--ds-background-neutral-hovered)}
+    .startup-notice{padding:16px;margin-bottom:18px;border:1px solid var(--ds-border-focused);border-radius:8px;background:var(--ds-background-selected);color:var(--ds-text)}.startup-notice p{margin:6px 0 0;font-size:13px;line-height:1.8}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}.inventory{min-width:0}.toolbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}.search{flex:1;min-width:180px;position:relative}.search svg{position:absolute;left:11px;top:11px;width:17px;height:17px;color:var(--ds-text-subtlest)}.search input{width:100%;height:40px;background:var(--ds-surface);border:1px solid var(--ds-border-input);border-radius:6px;padding:8px 12px 8px 36px;color:var(--ds-text);font-size:13px}.search input::placeholder{color:var(--ds-text-subtlest)}
+    .segmented{display:flex;background:var(--ds-surface-sunken);border:1px solid var(--ds-border);border-radius:6px;padding:3px;gap:3px}.segmented button{border:0;background:transparent;color:var(--ds-text-subtle);padding:5px 11px;border-radius:4px;font-size:12px;min-height:32px;white-space:nowrap}.segmented button[aria-pressed="true"]{background:var(--ds-surface);color:var(--ds-text-selected);box-shadow:0 1px 3px #091e421a;font-weight:600}
+    .custom-form{padding:0 18px 16px}.custom-form label{display:block;font-size:12px;font-weight:550;margin-bottom:6px}.custom-form-fields{display:flex;gap:8px}.custom-form input{min-width:0;flex:1;border:1px solid var(--ds-border-input);border-radius:6px;padding:8px 12px;background:var(--ds-surface);color:var(--ds-text);min-height:40px}.custom-form p{margin:7px 0 0;font-size:11px;color:var(--ds-text-subtlest)}.custom-delete{float:right}td:has(.custom-delete) .item-label{display:inline-flex;max-width:calc(100% - 34px)}
+    .voice-button{flex-shrink:0;width:40px;min-height:40px;padding:8px}.voice-button[aria-pressed="true"]{background:var(--ds-background-selected);color:var(--ds-text-selected);border-color:var(--ds-border-focused)}.custom-form .speech-status{color:var(--ds-text-selected);min-height:0}.speech-status:empty{display:none}
+    .catalog-section{border:1px solid var(--ds-border);border-radius:8px;margin-bottom:22px;overflow:hidden;scroll-margin-top:84px}.section-head{padding:17px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}.section-heading{display:flex;align-items:center;gap:10px}.section-symbol{width:32px;height:32px;border:1px solid var(--ds-border);border-radius:6px;display:grid;place-items:center;background:var(--ds-surface-sunken);color:var(--ds-text-subtle)}.section-symbol.makro{font-size:10px;font-weight:800;letter-spacing:-.5px;color:#c9372c}.section-heading h2{font-size:14px;margin:0;font-weight:700}.section-heading p{font-size:11px;color:var(--ds-text-subtlest);margin:1px 0 0}.count-label{font-size:11px;background:var(--ds-background-neutral);color:var(--ds-text-subtle);padding:2px 7px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
+    .table-scroll{max-height:420px;overflow:auto;overscroll-behavior:contain;border-top:1px solid var(--ds-border);scrollbar-width:thin;scrollbar-color:var(--ds-border-input) transparent}.table-scroll:focus-visible{outline-offset:-3px}table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}th{position:sticky;top:0;background:var(--ds-surface-sunken);font-size:11px;color:var(--ds-text-subtle);font-weight:550;text-align:left;z-index:2;border-bottom:1px solid var(--ds-border);padding:10px 12px}th:first-child{width:48px;text-align:center}th:last-child{width:152px;text-align:center}td{padding:10px 12px;border-bottom:1px solid var(--ds-border);height:60px;font-size:13px}tr:last-child td{border-bottom:0}td:first-child{text-align:center}tbody tr:hover{background:var(--ds-background-neutral-hovered)}tbody tr.is-selected{background:var(--ds-background-selected)}.item-label{display:flex;align-items:center;gap:10px;cursor:pointer;word-break:break-word}.row-number{font-size:10px;color:var(--ds-text-subtlest);min-width:18px;font-variant-numeric:tabular-nums}.item-label span:last-child{flex:1}.check{width:17px;height:17px;accent-color:var(--ds-background-brand-bold);cursor:pointer;vertical-align:middle;margin:0}.check-hit{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .quantity{display:flex;align-items:center;justify-content:center;gap:4px}.quantity input{width:52px;min-width:0;height:34px;border:1px solid var(--ds-border-input);border-radius:5px;text-align:center;background:var(--ds-surface);color:var(--ds-text);font-size:13px;font-variant-numeric:tabular-nums;appearance:textfield;-moz-appearance:textfield}.quantity input::-webkit-inner-spin-button,.quantity input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.step{display:grid;place-items:center;width:32px;height:34px;padding:0;background:var(--ds-surface);border:1px solid var(--ds-border);border-radius:5px;color:var(--ds-text-subtle)}.step:hover:not(:disabled){background:var(--ds-background-neutral-hovered);border-color:var(--ds-border-input)}.step svg{width:14px;height:14px}.empty-row{text-align:center!important;color:var(--ds-text-subtle);height:130px}.section-footer{background:var(--ds-surface);border-top:1px solid var(--ds-border);padding:9px 17px;font-size:11px;color:var(--ds-text-subtlest);display:flex;justify-content:space-between;gap:8px}.table-help{font-size:11px;color:var(--ds-text-subtlest);margin:2px 0 0;display:flex;gap:6px;align-items:center}.table-help svg{width:14px;height:14px;flex-shrink:0}
+    .order-panel{border:1px solid var(--ds-border);border-radius:8px;position:sticky;top:88px;overflow:hidden}.order-head{padding:18px;border-bottom:1px solid var(--ds-border);display:flex;align-items:center;justify-content:space-between}.order-head h2{font-size:14px;margin:0;display:flex;gap:8px;align-items:center}.order-head svg{width:17px;height:17px;color:var(--ds-text-subtle)}.order-empty{padding:34px 20px;text-align:center}.empty-illustration{width:58px;height:58px;background:var(--ds-surface-sunken);border:1px solid var(--ds-border);border-radius:12px;margin:0 auto 15px;display:grid;place-items:center;color:var(--ds-text-subtlest)}.empty-illustration svg{width:27px;height:27px}.order-empty h3{font-size:13px;font-weight:600;margin:0 0 6px}.order-empty p{color:var(--ds-text-subtlest);font-size:12px;margin:0;line-height:1.8}.order-list{max-height:380px;overflow:auto;padding:0 18px;scrollbar-width:thin}.order-group-title{font-size:10px;color:var(--ds-text-subtlest);letter-spacing:.4px;margin:18px 0 6px;font-weight:650}.order-item{display:flex;align-items:center;gap:8px;justify-content:space-between;font-size:12px;padding:9px 0;border-bottom:1px solid var(--ds-border)}.order-item:last-child{border-bottom:0}.order-item span:first-child{flex:1;word-break:break-word}.order-qty{font-weight:650;font-variant-numeric:tabular-nums;flex-shrink:0;background:var(--ds-surface-sunken);padding:1px 7px;border-radius:4px}.remove-item{border:0;background:transparent;color:var(--ds-text-subtlest);width:28px;height:28px;display:grid;place-items:center;border-radius:4px;padding:0}.remove-item:hover{background:var(--ds-background-neutral-hovered)}.remove-item svg{width:13px;height:13px}.order-bottom{padding:16px 18px 18px;border-top:1px solid var(--ds-border)}.order-total{display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px;color:var(--ds-text-subtle)}.order-total strong{color:var(--ds-text);font-variant-numeric:tabular-nums}.order-bottom .button{width:100%}.order-note{font-size:10px;color:var(--ds-text-subtlest);text-align:center;margin:9px 0 0}.share-tip{padding:16px 18px;background:var(--ds-surface-sunken);border-top:1px solid var(--ds-border);font-size:11px;color:var(--ds-text-subtle)}.share-tip strong{display:flex;align-items:center;gap:6px;color:var(--ds-text);font-weight:550;margin-bottom:5px}.share-tip svg{width:15px;height:15px}.share-tip p{margin:0;line-height:1.8}.footer-note{margin-top:22px;color:var(--ds-text-subtlest);font-size:11px;display:flex;align-items:center;gap:6px}.footer-note svg{width:14px;height:14px}
+    dialog{width:min(560px,calc(100% - 32px));max-height:calc(100dvh - 40px);padding:0;border:1px solid var(--ds-border);border-radius:12px;background:var(--ds-surface-overlay);color:var(--ds-text);box-shadow:var(--app-shadow)}dialog::backdrop{background:var(--ds-blanket)}.dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}.dialog-head h2{font-size:20px;margin:0 0 5px;letter-spacing:-.3px}.dialog-head p{font-size:12px;color:var(--ds-text-subtle);margin:0}.dialog-body{padding:20px 24px 24px}.export-preview{width:100%;height:230px;resize:vertical;border:1px solid var(--ds-border-input);border-radius:6px;background:var(--ds-surface-sunken);color:var(--ds-text);padding:14px;font:13px/1.9 var(--app-font)}.export-label{display:flex;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:8px;color:var(--ds-text-subtle)}.dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.dialog-actions .primary{flex:1}.dialog-tip{font-size:11px;color:var(--ds-text-subtlest);margin:13px 0 0;line-height:1.8}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ds-text);color:var(--ds-surface);border-radius:8px;padding:11px 18px;font-size:13px;box-shadow:var(--app-shadow);max-width:calc(100vw - 32px);width:max-content;transition:opacity .15s,transform .15s;z-index:100}.toast.visible{opacity:1;transform:translate(-50%,0)}
+    @media(min-width:1500px){.content-grid{grid-template-columns:minmax(0,1fr) 320px}main{padding:32px 40px}.table-scroll{max-height:460px}}
+    @media(max-width:1199px){.shell{grid-template-columns:190px minmax(0,1fr)}main{padding:24px}.content-grid{grid-template-columns:minmax(0,1fr) 260px;gap:16px}.sidebar{padding:26px 10px}.product-label{display:none}.page-heading{align-items:flex-start}.heading-actions .reset-label{display:none}.heading-actions .button.quiet{padding:9px}h1{font-size:24px}}
+    @media(max-width:1023px){.shell{grid-template-columns:1fr}.sidebar{display:none}.content-grid{grid-template-columns:minmax(0,1fr)}.order-panel{display:none}.topbar{padding:0 24px}}
+    @media(max-width:767px){html{scroll-padding-top:80px}.topbar{height:56px;padding:0 16px}.brand{font-size:14px}.brand-mark{width:28px;height:28px;font-size:18px}.session-note{display:none}main{padding:22px 16px 36px}.breadcrumb{font-size:11px;margin-bottom:14px}.page-heading{flex-direction:column;gap:15px;margin-bottom:20px}.heading-actions{width:100%}.heading-actions .primary{flex:1}.heading-actions .reset-label{display:inline}.heading-actions .button.quiet{border:1px solid var(--ds-border);padding:8px 12px}h1{font-size:24px}.subtitle{font-size:12px}.content-grid{grid-template-columns:1fr;gap:20px}.toolbar{gap:8px}.search{flex-basis:100%}.segmented{flex:1}.segmented button{flex:1}.section-head{padding:14px 12px}th:first-child{width:40px}th:last-child{width:150px}th,td{padding:10px 8px}.row-number{display:none}.table-scroll{max-height:400px}.order-list{max-height:300px}.order-empty{padding:24px}.share-tip{padding:14px 18px}.footer-note{align-items:flex-start}.dialog-head{padding:20px 18px 0}.dialog-body{padding:18px}.dialog-head h2{font-size:18px}.dialog-actions .primary{flex-basis:100%}.dialog-actions .button:not(.primary){flex:1}.toast{bottom:16px;font-size:12px}}
+    @media(pointer:coarse){.button,.icon-button{min-height:44px}.step{height:44px;width:36px}.quantity input{height:44px;width:48px}.check-hit{min-height:44px;width:36px}.remove-item{width:44px;height:44px}.segmented button{min-height:38px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
+  </style>
+</head>
+<body>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden"><defs>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12M3 6h1M3 12h1M3 18h1"/></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><path d="M5 7h14l1 14H4L5 7Z"/><path d="M8 8V6a4 4 0 0 1 8 0v2"/></symbol>
+    <symbol id="i-export" viewBox="0 0 24 24"><path d="M12 15V3m-4 4 4-4 4 4M5 13v7h14v-7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="m12 3 9 5-9 5-9-5 9-5ZM3 8v10l9 5 9-5V8M12 13v10M7.5 5.5l9 5"/></symbol>
+    <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M20 3c-9-1-17 3-16 10 1 8 14 8 16-10ZM4 21l11-12"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V3H3v13h5"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5"/></symbol>
+    <symbol id="i-airdrop" viewBox="0 0 24 24"><path d="m12 13-4 7h8l-4-7ZM7 16a7 7 0 1 1 10 0M4 19a11 11 0 1 1 16 0"/><circle cx="12" cy="9" r="2"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol>
+    <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14A9 9 0 0 1 10 3.5 9 9 0 1 0 20.5 14Z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  </defs></svg>
+  <a class="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
+  <header class="topbar">
+    <div class="top-left"><a href="#main" class="brand" aria-label="Chui Kitchen หน้ารายการสั่งวัตถุดิบ"><span class="brand-mark" aria-hidden="true">c.</span>chui kitchen</a><span class="product-label">พื้นที่จัดการครัว</span></div>
+    <div class="top-right"><span class="session-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการใหม่ในทุกครั้งที่เปิด</span><button id="theme-toggle" class="icon-button" aria-label="เปลี่ยนเป็นธีมมืด" title="เปลี่ยนธีม"><svg aria-hidden="true"><use href="#i-moon"/></svg></button></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar" aria-label="เมนูหลัก">
+      <div class="workspace"><span class="workspace-icon"><svg aria-hidden="true"><use href="#i-bag"/></svg></span><div><strong>Kitchen workspace</strong><small>เตรียมพร้อมสำหรับทุกมื้อ</small></div></div>
+      <nav aria-label="จัดการวัตถุดิบ"><p class="nav-label">WORKSPACE</p><div class="nav-list"><a class="nav-link active" href="#main" aria-current="page"><svg aria-hidden="true"><use href="#i-grid"/></svg>สั่งวัตถุดิบ</a><a class="nav-link" href="#general"><svg aria-hidden="true"><use href="#i-leaf"/></svg>รายการทั่วไป<span class="nav-count">48</span></a><a class="nav-link" href="#makro"><svg aria-hidden="true"><use href="#i-bag"/></svg>รายการ MAKRO<span class="nav-count">39</span></a><a class="nav-link" href="#custom"><svg aria-hidden="true"><use href="#i-list"/></svg>กำหนดเอง<span class="nav-count" id="nav-custom">0</span></a><a class="nav-link" href="#order-panel"><svg aria-hidden="true"><use href="#i-list"/></svg>รายการที่เลือก<span class="nav-count" id="nav-selected">0</span></a></div></nav>
+      <div class="sidebar-bottom"><strong>เลือก · ระบุจำนวน · ส่งต่อ</strong><p>รวมรายการสั่งของไว้ในที่เดียว<br>พร้อมส่งให้ตัวเองหรือร้านค้า</p></div>
+    </aside>
+    <main id="main">
+      <div class="breadcrumb"><span>พื้นที่จัดการครัว</span><svg aria-hidden="true"><use href="#i-right"/></svg><span>สั่งวัตถุดิบ</span></div>
+      <div class="page-heading"><div><h1>รายการสั่งวัตถุดิบ</h1><p class="subtitle">เลือกของที่ต้องใช้ ปรับจำนวน แล้วส่งรายการสั่งซื้อได้เลย</p></div><div class="heading-actions"><button class="button quiet" id="reset"><svg aria-hidden="true"><use href="#i-reset"/></svg><span class="reset-label">เริ่มใหม่</span></button><button class="button primary" id="export-top" disabled><svg aria-hidden="true"><use href="#i-export"/></svg>Export รายการ<span id="export-count"></span></button></div></div>
+      <div id="app-startup" class="startup-notice" role="status">
+        <strong>หากรายการวัตถุดิบไม่แสดง หน้านี้อาจยังรัน JavaScript ไม่ได้</strong>
+        <p>หน้าพรีวิวไฟล์บน iPhone อาจแสดงได้เฉพาะหน้าตา สำหรับการเลือกวัตถุดิบ ปรับจำนวน และ Export ให้เปิดผ่านลิงก์เว็บไซต์ HTTPS ใน Safari</p>
+        <noscript><p>JavaScript ไม่ทำงานในหน้าที่เปิดอยู่ จึงยังแสดงตารางและใช้ปุ่มต่าง ๆ ไม่ได้ ข้อมูลวัตถุดิบยังอยู่ในไฟล์</p></noscript>
+      </div>
+      <div class="content-grid"><div class="inventory">
+        <div class="toolbar"><label class="search"><span class="sr-only">ค้นหาวัตถุดิบ</span><svg aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="search" placeholder="ค้นหาชื่อวัตถุดิบ…" autocomplete="off"></label><div class="segmented" role="group" aria-label="กรองรายการ"><button id="view-all" aria-pressed="true">ทั้งหมด</button><button id="view-selected" aria-pressed="false">เลือกแล้ว <span id="filter-count">0</span></button></div></div>
+        <div id="catalog"></div>
+        <p class="table-help"><svg aria-hidden="true"><use href="#i-info"/></svg>ใช้ลูกศรขึ้น / ลงเพื่อปรับทีละ 0.5 โล หรือพิมพ์จำนวนเองได้ · หน่วยเป็นโลทุกรายการ</p>
+      </div>
+      <aside class="order-panel" id="order-panel" aria-labelledby="order-heading"><div class="order-head"><h2 id="order-heading"><svg aria-hidden="true"><use href="#i-list"/></svg>รายการของคุณ</h2><span class="count-label" id="order-badge">0 รายการ</span></div><div id="order-content"></div><div class="order-bottom"><div class="order-total"><span>รายการที่เลือกทั้งหมด</span><strong><span id="order-total">0</span> รายการ</strong></div><button class="button primary" id="export-panel" disabled><svg aria-hidden="true"><use href="#i-export"/></svg>Export รายการ</button><p class="order-note">ส่งออกเฉพาะรายการที่เลือก พร้อมจำนวนและหน่วยโล</p></div><div class="share-tip"><strong><svg aria-hidden="true"><use href="#i-airdrop"/></svg>ส่งต่อไป iPhone</strong><p>กด Export แล้วเลือก “แชร์ / AirDrop”<br>หรือดาวน์โหลดไฟล์ .txt เก็บไว้ส่งต่อ</p></div></aside></div>
+      <p class="footer-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการนี้ไม่ถูกบันทึกไว้ · รีเฟรชหน้าเพื่อเริ่มต้นใหม่ รายการกำหนดเองจะถูกล้าง และจำนวนกลับเป็น 1 โล</p>
+    </main>
+  </div>
+  <dialog id="export-dialog" aria-labelledby="export-title" aria-describedby="export-description"><div class="dialog-head"><div><h2 id="export-title">พร้อมส่งรายการสั่งของ</h2><p id="export-description">ตรวจรายการ แล้วเลือกวิธีส่งต่อได้เลย</p></div><button id="close-export" class="icon-button" aria-label="ปิดหน้าส่งออกรายการ"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="dialog-body"><div class="export-label"><label for="export-text">ข้อความสำหรับสั่งของ</label><span id="export-summary"></span></div><textarea class="export-preview" id="export-text" readonly spellcheck="false"></textarea><div class="dialog-actions"><button class="button primary" id="share"><svg aria-hidden="true"><use href="#i-airdrop"/></svg>แชร์ / AirDrop</button><button class="button" id="download"><svg aria-hidden="true"><use href="#i-download"/></svg>ดาวน์โหลด .txt</button><button class="button" id="copy"><svg aria-hidden="true"><use href="#i-copy"/></svg>คัดลอก</button></div><p id="share-help" class="dialog-tip">AirDrop จะแสดงในเมนูแชร์เมื่ออุปกรณ์และเบราว์เซอร์รองรับ หากไม่พบ ให้ดาวน์โหลด .txt แล้วแชร์ไฟล์ผ่าน Finder</p><p id="export-status" class="dialog-tip" role="status" aria-live="polite"></p></div></dialog>
+  <dialog id="reset-dialog" aria-labelledby="reset-title"><div class="dialog-head"><div><h2 id="reset-title">เริ่มรายการใหม่?</h2><p>ลบรายการกำหนดเอง ยกเลิกการเลือกทั้งหมด และคืนจำนวนทุกรายการเป็น 1 โล</p></div></div><div class="dialog-body"><div class="dialog-actions"><button class="button" id="cancel-reset" autofocus>กลับไปเลือกรายการ</button><button class="button primary" id="confirm-reset">เริ่มใหม่</button></div></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script>
+    'use strict';
+    const GROUPS = [
+      { id:'general', title:'รายการทั่วไป', description:'ผักสด เนื้อสัตว์ และของใช้ในครัว', icon:'i-leaf', names:[
+        'กุยช่าย','ถั่วฝักยาว','ผักกาดขาวจีน','ผักบุ้งจีน','ขึ้นฉ่าย','มะนาว','แตงกวา','ใบกะเพรา','พริกจินดาแดง','พริกขี้หนูสวนเม็ดเล็ก','กระเทียมจีน','กระเทียมกลีบเล็ก','มะเขือเทศท้อ','คะน้าต้น','หัวปลี','ถั่วงอก','หัวไชเท้า','หอมแดงปอก','ผักชี','ต้นหอม','แป้งมัน','เกี๊ยวแผ่น','น้ำตาลปี๊บ','นมคาเนชั่น','น้ำตาลทรายแดง','ขิงดอง','กุ้งแห้ง','ไข่ เบอร์ 2','พริกแห้ง','เต้าหู้เหลือง','กุ้ง (26-28)','ปลาหมึกสด','ปลาหมึกกรอบ','หมูชิ้นสันในแบบนุ่ม','หมูสันใน','หมูสับ','อกไก่','ปีกไก่','เนื้อน่องลายสไลซ์บาง','เนื้อสันนอก','โครงไก่','ปืนยิงแก๊ส','ถุงร้อน (14x22)','ถุงร้อน (7x11)','เอ็นข้อไก่','เนื้อแดด','หมูแดด','ผงหมูแดง'
+      ]},
+      { id:'makro', title:'รายการ MAKRO', description:'เครื่องปรุง ของแห้ง และบรรจุภัณฑ์', icon:'i-bag', names:[
+        'ไส้กรอกอีสาน','แซลมอล','เฟร้นฟราย','ผงชูรส','รสดี','ซอสพริก','ซอสมะเขือเทศ','น้ำจิ้มไก่','น้ำมัน','วุ้นเส้น','เส้นจันทร์','น้ำมะขาม','พริกเผา','น้ำปลา','วาซาบิ','ข้าวสาร','เม็ดมะม่วง','ถั่วลิสง','กล่องใส่อาหาร','คนอร์','ถั่วป่น','พริกไทยป่น','แป้งทอดกรอบ','พริกน้ำตาล','พริกน้ำปลา','น้ำมันพริกเผา','น้ำมันหอย','ซีอิ๊วดำ','น้ำมันงา','น้ำตาลทรายขาว','หลอด','ตะเกียบ','ถุงร้อน 7x11','ถุงร้อน 6x9','ถุงหิ้ว 8x16','ถุงหิ้ว 9x18','ถุงมือดำ','น้ำยาล้างจาน','กระดาษซับมัน'
+      ]},
+      { id:'custom', title:'กำหนดเอง', description:'เพิ่มวัตถุดิบอื่นที่ต้องการสั่ง', icon:'i-list', names:[] }
+    ];
+    // Half-unit integer ticks avoid floating point drift. Session memory only.
+    const items = GROUPS.flatMap(group => group.names.map((name,index) => ({ id:`${group.id}-${index}`, group:group.id, name, index, ticks:2, selected:false })));
+    const $ = id => document.getElementById(id);
+    const icon = name => `<svg aria-hidden="true"><use href="#${name}"/></svg>`;
+    const escapeHTML = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+    const formatQuantity = ticks => String(ticks / 2);
+    const formatAmount = ticks => {
+      if (ticks === 1) return 'ครึ่งโล';
+      const whole = Math.floor(ticks / 2);
+      return `${whole} โล${ticks % 2 ? ' ครึ่ง' : ''}`;
+    };
+    let nextCustomId = 0;
+    const SpeechRecognizer = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let speechSession = null;
+    let speechMessage = '';
+    let selectedOnly = false;
+    let toastTimer;
+    let exportText = '';
+    let exportTrigger = null;
+    const getItem = id => items.find(item => item.id === id);
+    const getSelected = () => items.filter(item => item.selected);
+    function visibleItems(groupId) {
+      const query = $('search').value.trim().normalize('NFC').toLocaleLowerCase('th');
+      return items.filter(item => item.group === groupId && (!selectedOnly || item.selected) && item.name.normalize('NFC').toLocaleLowerCase('th').includes(query));
+    }
+    function buildExportText() {
+      return getSelected().map(item => `${item.name} ${formatAmount(item.ticks)}`).join('\n');
+    }
+    function renderCatalog() {
+      const customDraft=$('custom-name')?.value || '';
+      const positions = Object.fromEntries(GROUPS.map(group => [group.id, document.querySelector(`#${group.id} .table-scroll`)?.scrollTop || 0]));
+      $('catalog').innerHTML = GROUPS.map(group => {
+        const visible = visibleItems(group.id);
+        const groupItems = items.filter(item=>item.group===group.id);
+        const selected = items.filter(item => item.group === group.id && item.selected).length;
+        const rows = visible.map(item => `<tr data-row="${item.id}" class="${item.selected ? 'is-selected' : ''}"><td><label class="check-hit"><input class="check row-check" type="checkbox" data-id="${item.id}" ${item.selected?'checked':''} aria-label="เลือก ${escapeHTML(item.name)} (${group.title})"></label></td><td><label class="item-label" for="check-${item.id}"><span class="row-number">${String(item.index+1).padStart(2,'0')}</span><span>${escapeHTML(item.name)}</span></label>${item.group==='custom'?`<button class="remove-item custom-delete" data-delete="${item.id}" aria-label="ลบรายการกำหนดเอง ${escapeHTML(item.name)}">${icon('i-close')}</button>`:''}</td><td><div class="quantity"><button class="step" data-step="-1" data-id="${item.id}" aria-label="ลด ${escapeHTML(item.name)} ทีละ 0.5 โล" ${item.ticks===1?'disabled':''}>${icon('i-down')}</button><input type="number" min="0.5" step="0.5" value="${formatQuantity(item.ticks)}" data-id="${item.id}" class="quantity-input" aria-label="จำนวน ${escapeHTML(item.name)} (${group.title}) หน่วยโล" inputmode="decimal" autocomplete="off"><button class="step" data-step="1" data-id="${item.id}" aria-label="เพิ่ม ${escapeHTML(item.name)} ทีละ 0.5 โล">${icon('i-up')}</button></div></td></tr>`).join('');
+        return `<section class="catalog-section" id="${group.id}" aria-labelledby="heading-${group.id}"><div class="section-head"><div class="section-heading"><span class="section-symbol ${group.id==='makro'?'makro':''}">${group.id==='makro'?'M':icon(group.icon)}</span><div><h2 id="heading-${group.id}">${group.title}</h2><p>${group.description}</p></div></div><span class="count-label">${groupItems.length} รายการ</span></div>${group.id==='custom'?`<form class="custom-form" id="custom-form"><label for="custom-name">ชื่อวัตถุดิบ</label><div class="custom-form-fields"><input id="custom-name" name="name" type="text" placeholder="เช่น เห็ดออรินจิ" autocomplete="off" aria-describedby="speech-status" required><button id="custom-mic" class="button voice-button" type="button" aria-label="พูดชื่อวัตถุดิบ" aria-pressed="false" title="พูดชื่อวัตถุดิบภาษาไทย">${icon('i-mic')}</button><button id="custom-add" class="button" type="submit">เพิ่มรายการ</button></div><p>เพิ่มแล้วเลือกให้อัตโนมัติ · เริ่มต้น 1 โล · กดไมค์เพื่อพูดชื่อ</p><p id="speech-status" class="speech-status" role="status" aria-live="polite"></p></form>`:''}<div class="table-scroll" tabindex="0" role="region" aria-label="ตาราง${group.title} เลื่อนเพื่อดูรายการทั้งหมด"><table><caption class="sr-only">${group.title} เลือกวัตถุดิบและระบุจำนวนครั้งละ 0.5 โล</caption><thead><tr><th scope="col"><label class="check-hit"><input class="check group-check" type="checkbox" data-group="${group.id}" aria-label="เลือกทั้งหมดที่แสดงใน${group.title}" ${visible.length?'':'disabled'}></label></th><th scope="col">ชื่อวัตถุดิบ</th><th scope="col">จำนวน (โล)</th></tr></thead><tbody>${rows || '<tr><td colspan="3" class="empty-row">'+(group.id==='custom'&&!groupItems.length?'ยังไม่มีรายการกำหนดเอง เพิ่มชื่อวัตถุดิบได้ด้านบน':'ไม่พบรายการ'+(selectedOnly?'ที่เลือก':'ตามคำค้นนี้'))+'</td></tr>'}</tbody></table></div><div class="section-footer"><span>แสดง ${visible.length} จาก ${groupItems.length} รายการ</span><span id="count-${group.id}">เลือกแล้ว ${selected} รายการ</span></div></section>`;
+      }).join('');
+      $('custom-name').value=customDraft;
+      syncSpeechUI();
+      document.querySelectorAll('.row-check').forEach(input => { input.id = `check-${input.dataset.id}`; });
+      GROUPS.forEach(group => { document.querySelector(`#${group.id} .table-scroll`).scrollTop = positions[group.id]; });
+      syncGroupChecks();
+    }
+    function syncGroupChecks() {
+      document.querySelectorAll('.group-check').forEach(input => {
+        const visible = visibleItems(input.dataset.group);
+        const count = visible.filter(item=>item.selected).length;
+        input.checked = visible.length > 0 && count === visible.length;
+        input.indeterminate = count > 0 && count < visible.length;
+      });
+    }
+    function updateSummary() {
+      const selected = getSelected();
+      $('nav-custom').textContent = items.filter(item=>item.group==='custom').length;
+      ['nav-selected','filter-count','order-total'].forEach(id=>$(id).textContent=selected.length);
+      $('order-badge').textContent = `${selected.length} รายการ`;
+      $('export-count').textContent = selected.length ? `(${selected.length})` : '';
+      ['export-top','export-panel'].forEach(id=>$(id).disabled=!selected.length);
+      GROUPS.forEach(group=>{ const count=$(`count-${group.id}`); if(count)count.textContent=`เลือกแล้ว ${selected.filter(item=>item.group===group.id).length} รายการ`; });
+      const oldScroll = document.querySelector('.order-list')?.scrollTop || 0;
+      $('order-content').innerHTML = selected.length ? `<div class="order-list">${GROUPS.map(group=>{
+        const list = selected.filter(item=>item.group===group.id);
+        return list.length ? `<h3 class="order-group-title">${group.title} · ${list.length}</h3>${list.map(item=>`<div class="order-item"><span>${escapeHTML(item.name)}</span><span class="order-qty">${formatAmount(item.ticks)}</span><button class="remove-item" data-remove="${item.id}" aria-label="นำ ${escapeHTML(item.name)} ออกจากรายการ">${icon('i-close')}</button></div>`).join('')}` : '';
+      }).join('')}</div>` : `<div class="order-empty"><div class="empty-illustration">${icon('i-bag')}</div><h3>เริ่มจากของที่ต้องใช้</h3><p>ติ๊กเลือกวัตถุดิบจากตาราง<br>รายการและจำนวนจะปรากฏที่นี่</p></div>`;
+      const orderList=document.querySelector('.order-list'); if(orderList)orderList.scrollTop=oldScroll;
+      syncGroupChecks();
+    }
+    function syncSpeechUI() {
+      const button=$('custom-mic'), input=$('custom-name'), add=$('custom-add');
+      if(!button || !input || !add)return;
+      const active=Boolean(speechSession);
+      button.setAttribute('aria-pressed',String(active));
+      button.setAttribute('aria-label',active?'หยุดรับเสียง':'พูดชื่อวัตถุดิบ');
+      button.title=active?'หยุดรับเสียง':'พูดชื่อวัตถุดิบภาษาไทย';
+      button.innerHTML=icon(active?'i-stop':'i-mic');
+      input.readOnly=active;
+      add.disabled=active;
+      $('speech-status').textContent=speechMessage;
+    }
+    function cancelDictation() {
+      const session=speechSession;
+      if(!session)return;
+      speechSession=null; // Ignore late results from a cancelled session.
+      if($('custom-name'))$('custom-name').value=session.finalText;
+      try{session.recognition.abort();}catch{}
+      speechMessage='หยุดรับเสียงแล้ว';
+      syncSpeechUI();
+    }
+    function toggleDictation() {
+      if(speechSession){
+        try{speechSession.recognition.stop();speechMessage='กำลังจบการรับเสียง…';syncSpeechUI();}
+        catch{cancelDictation();}
+        return;
+      }
+      if(!SpeechRecognizer){
+        speechMessage='เบราว์เซอร์นี้ยังรับเสียงไม่ได้ แตะช่องชื่อแล้วใช้ไมค์บนคีย์บอร์ด iPhone หรือพิมพ์ได้เลย';
+        syncSpeechUI();$('custom-name').focus();return;
+      }
+      const base=$('custom-name').value.trim();
+      try{
+        const recognition=new SpeechRecognizer();
+        const session={recognition,base,finalText:base,hasFinal:false};
+        speechSession=session;
+        recognition.lang='th-TH';
+        recognition.continuous=false;
+        recognition.interimResults=true;
+        recognition.maxAlternatives=1;
+        const current=()=>speechSession===session;
+        const finish=message=>{
+          if(!current())return;
+          $('custom-name').value=session.finalText;
+          $('custom-name').setCustomValidity('');
+          speechSession=null;speechMessage=message;syncSpeechUI();
+        };
+        recognition.onstart=()=>{if(current()){speechMessage='กำลังฟังภาษาไทย… กดปุ่มอีกครั้งเพื่อหยุด';syncSpeechUI();}};
+        recognition.onresult=event=>{
+          if(!current())return;
+          const final=[],preview=[];
+          for(let index=0;index<event.results.length;index++){
+            const result=event.results[index],text=result[0].transcript.trim();
+            if(text){preview.push(text);if(result.isFinal)final.push(text);}
+          }
+          const combine=parts=>[session.base,...parts].filter(Boolean).join(' ');
+          if(final.length){session.finalText=combine(final);session.hasFinal=true;}
+          $('custom-name').value=combine(preview);
+          $('custom-name').setCustomValidity('');
+        };
+        recognition.onerror=event=>{
+          const messages={
+            'not-allowed':'ยังไม่ได้รับอนุญาตให้ใช้ไมค์ ลองเปิดหน้านี้ใน Safari และอนุญาตไมโครโฟน หรือใช้ไมค์บนคีย์บอร์ด iPhone',
+            'service-not-allowed':'ระบบรับเสียงยังไม่พร้อม ลองใช้ไมค์บนคีย์บอร์ด iPhone หรือพิมพ์แทน',
+            'audio-capture':'ไม่พบไมโครโฟนที่ใช้งานได้ ตรวจการเชื่อมต่อแล้วลองใหม่',
+            'network':'รับเสียงไม่ได้ ตรวจอินเทอร์เน็ตแล้วลองอีกครั้ง หรือใช้ไมค์บนคีย์บอร์ด iPhone',
+            'no-speech':'ไม่ได้ยินเสียง ลองกดไมค์แล้วพูดชื่อวัตถุดิบอีกครั้ง',
+            'language-not-supported':'ระบบนี้ยังรับเสียงภาษาไทยไม่ได้ ใช้ไมค์บนคีย์บอร์ด iPhone หรือพิมพ์แทน',
+            'aborted':'หยุดรับเสียงแล้ว'
+          };
+          finish(messages[event.error] || 'รับเสียงไม่ได้ ลองอีกครั้ง หรือใช้ไมค์บนคีย์บอร์ด iPhone');
+        };
+        recognition.onend=()=>finish(session.hasFinal?'พิมพ์จากเสียงแล้ว ตรวจชื่อและกด “เพิ่มรายการ”':'ไม่ได้รับข้อความ ลองกดไมค์อีกครั้ง หรือพิมพ์ชื่อได้เลย');
+        speechMessage='กำลังเปิดไมโครโฟน…';syncSpeechUI();
+        recognition.start(); // Only starts from an explicit mic-button click.
+      }catch{
+        cancelDictation();
+        speechMessage='เปิดไมค์ไม่ได้ ลองเปิดหน้าเว็บผ่าน HTTPS ใน Safari หรือใช้ไมค์บนคีย์บอร์ด iPhone';
+        syncSpeechUI();
+      }
+    }
+    function showToast(message) { $('toast').textContent=message; $('toast').classList.add('visible'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>$('toast').classList.remove('visible'),3200); }
+    function updateQuantity(item,ticks) {
+      item.ticks=ticks;
+      const row=document.querySelector(`[data-row="${item.id}"]`);
+      if(row){ row.querySelector('.quantity-input').value=formatQuantity(ticks); row.querySelector('[data-step="-1"]').disabled=ticks===1; }
+      updateSummary();
+    }
+    function commitQuantity(input) {
+      const item=getItem(input.dataset.id);
+      const number=Number(input.value);
+      const ticks=number*2;
+      if(!input.value.trim() || !Number.isFinite(number) || !Number.isSafeInteger(ticks) || ticks<1){
+        input.value=formatQuantity(item.ticks); showToast('กรุณาระบุจำนวนตั้งแต่ 0.5 โล และเพิ่มทีละ 0.5 โล'); return false;
+      }
+      updateQuantity(item,ticks); return true;
+    }
+    $('catalog').addEventListener('change',event=>{
+      const target=event.target;
+      if(target.matches('.row-check')){
+        const item=getItem(target.dataset.id); item.selected=target.checked;
+        target.closest('tr').classList.toggle('is-selected',item.selected);
+        if(selectedOnly && !item.selected){const focusGroup=item.group;renderCatalog();focusGroupControl(focusGroup);}
+        updateSummary();
+      } else if(target.matches('.group-check')) {
+        visibleItems(target.dataset.group).forEach(item=>item.selected=target.checked);
+        const group=target.dataset.group; renderCatalog(); updateSummary();focusGroupControl(group);
+      } else if(target.matches('.quantity-input')) commitQuantity(target);
+    });
+    function focusGroupControl(group){const control=document.querySelector(`#${group} .group-check`);(control.disabled?$('view-selected'):control).focus({preventScroll:true});}
+    $('catalog').addEventListener('click',event=>{
+      if(event.target.closest('#custom-mic')){toggleDictation();return;}
+      const remove=event.target.closest('[data-delete]');
+      if(remove){
+        const index=items.findIndex(item=>item.id===remove.dataset.delete&&item.group==='custom');
+        if(index!==-1)items.splice(index,1);
+        renderCatalog();updateSummary();$('custom-name').focus({preventScroll:true});return;
+      }
+      const step=event.target.closest('[data-step]'); if(!step)return;
+      const item=getItem(step.dataset.id);
+      const next=item.ticks+Number(step.dataset.step);
+      if(Number.isSafeInteger(next)&&next>=1)updateQuantity(item,next);
+    });
+    $('catalog').addEventListener('submit',event=>{
+      if(event.target.id!=='custom-form')return;
+      event.preventDefault();
+      if(speechSession){showToast('หยุดรับเสียงก่อนเพิ่มรายการ');return;}
+      const name=$('custom-name').value.trim().replace(/\s+/g,' ');
+      if(!name){$('custom-name').setCustomValidity('กรุณาระบุชื่อวัตถุดิบ');$('custom-name').reportValidity();return;}
+      items.push({id:`custom-${nextCustomId}`,group:'custom',name,index:nextCustomId++,ticks:2,selected:true});
+      speechMessage='';$('search').value='';$('custom-name').value='';renderCatalog();updateSummary();$('custom-name').focus({preventScroll:true});
+      const region=document.querySelector('#custom .table-scroll');region.scrollTop=region.scrollHeight;
+      showToast(`เพิ่ม ${name} แล้ว`);
+    });
+    $('catalog').addEventListener('input',event=>{if(event.target.id==='custom-name')event.target.setCustomValidity('');});
+    $('catalog').addEventListener('keydown',event=>{
+      if(!event.target.matches('.quantity-input'))return;
+      if(event.key==='Enter'){event.preventDefault();commitQuantity(event.target);}
+      if(event.key==='Escape'){event.target.value=formatQuantity(getItem(event.target.dataset.id).ticks);event.target.blur();}
+    });
+    $('order-content').addEventListener('click',event=>{
+      const button=event.target.closest('[data-remove]'); if(!button)return;
+      const item=getItem(button.dataset.remove);item.selected=false;renderCatalog();updateSummary();
+      $('order-heading').tabIndex=-1;$('order-heading').focus({preventScroll:true});
+    });
+    $('search').addEventListener('input',renderCatalog);
+    function setFilter(value){selectedOnly=value;$('view-all').setAttribute('aria-pressed',String(!value));$('view-selected').setAttribute('aria-pressed',String(value));renderCatalog();}
+    $('view-all').addEventListener('click',()=>setFilter(false));$('view-selected').addEventListener('click',()=>setFilter(true));
+    function openExport(event){
+      cancelDictation();
+      if(!getSelected().length)return;
+      exportText=buildExportText();$('export-text').value=exportText;
+      $('export-summary').textContent=`${getSelected().length} รายการ`;
+      $('export-status').textContent='';exportTrigger=event.currentTarget;
+      $('share').disabled=!(window.isSecureContext&&typeof navigator.share==='function');
+      $('share-help').textContent=$('share').disabled?'เบราว์เซอร์นี้เปิดเมนูแชร์ไม่ได้ ดาวน์โหลด .txt แล้วใช้เมนูแชร์ของ Finder เพื่อส่งผ่าน AirDrop หรือคัดลอกข้อความได้เลย':'เลือก AirDrop ในเมนูแชร์ของระบบเมื่อมีให้ใช้ หากไม่พบ ให้ดาวน์โหลด .txt แล้วแชร์ไฟล์ผ่าน Finder';
+      $('export-dialog').showModal();
+    }
+    $('export-top').addEventListener('click',openExport);$('export-panel').addEventListener('click',openExport);
+    $('close-export').addEventListener('click',()=>$('export-dialog').close());
+    $('export-dialog').addEventListener('close',()=>exportTrigger?.focus({preventScroll:true}));
+    function fileName(){const date=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Bangkok',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());return `รายการสั่งวัตถุดิบ-${date}.txt`;}
+    function createTextFile(){return new File([exportText+'\n'],fileName(),{type:'text/plain'});}
+    $('download').addEventListener('click',()=>{
+      const url=URL.createObjectURL(createTextFile());const link=document.createElement('a');link.href=url;link.download=fileName();document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+      $('export-status').textContent='สร้างไฟล์ .txt แล้ว ตรวจไฟล์ในรายการดาวน์โหลดของเบราว์เซอร์';
+    });
+    $('copy').addEventListener('click',async()=>{
+      try {
+        if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(exportText);
+        else { $('export-text').focus();$('export-text').select();if(!document.execCommand('copy'))throw new Error('copy'); }
+        $('export-status').textContent='คัดลอกแล้ว พร้อมวางในแชตเพื่อสั่งของ';
+      } catch { $('export-text').focus();$('export-text').select();$('export-status').textContent='เลือกข้อความให้แล้ว กด ⌘C หรือ Ctrl+C เพื่อคัดลอก'; }
+    });
+    $('share').addEventListener('click',async()=>{
+      // Invoke within the click gesture. A website cannot force an AirDrop target.
+      try {
+        const file=createTextFile();
+        const payload=typeof navigator.canShare==='function'&&navigator.canShare({files:[file]})?{files:[file]}:{text:exportText};
+        $('share').disabled=true;
+        await navigator.share(payload);
+        $('export-status').textContent='ส่งรายการให้เมนูแชร์ของระบบแล้ว';
+      } catch(error) {
+        $('export-status').textContent=error.name==='AbortError'?'ยกเลิกการแชร์แล้ว รายการยังอยู่ครบ':'เปิดการแชร์ไม่ได้ ลองดาวน์โหลด .txt หรือคัดลอกข้อความ';
+      } finally { $('share').disabled=!(window.isSecureContext&&typeof navigator.share==='function'); }
+    });
+    function resetAll(){cancelDictation();speechMessage='';for(let index=items.length-1;index>=0;index--){if(items[index].group==='custom')items.splice(index,1);}nextCustomId=0;if($('custom-name'))$('custom-name').value='';items.forEach(item=>{item.selected=false;item.ticks=2;});$('search').value='';setFilter(false);updateSummary();}
+    $('reset').addEventListener('click',()=>{cancelDictation();if(items.some(item=>item.selected||item.ticks!==2||item.group==='custom'))$('reset-dialog').showModal();else{resetAll();showToast('พร้อมเริ่มรายการใหม่แล้ว');}});
+    $('cancel-reset').addEventListener('click',()=>$('reset-dialog').close());
+    $('confirm-reset').addEventListener('click',()=>{resetAll();$('reset-dialog').close();showToast('เริ่มใหม่แล้ว จำนวนทุกรายการกลับเป็น 1 โล');});
+    $('theme-toggle').addEventListener('click',()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('theme-toggle').setAttribute('aria-label',`เปลี่ยนเป็นธีม${dark?'สว่าง':'มืด'}`);});
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';$('theme-toggle').setAttribute('aria-label','เปลี่ยนเป็นธีมสว่าง');}
+    window.addEventListener('pagehide',cancelDictation);
+    document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelDictation();});
+    // Prevent form restoration and back/forward cache from keeping a past order.
+    window.addEventListener('pageshow',()=>{if($('export-dialog').open)$('export-dialog').close();if($('reset-dialog').open)$('reset-dialog').close();resetAll();});
+    resetAll();
+    $('app-startup').hidden=true;
+  </script>
+</body>
+</html>
