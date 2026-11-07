@@ -55,6 +55,7 @@
     .sidebar-bottom{margin-top:auto;border-top:1px solid var(--ds-border);padding:18px 10px 0;color:var(--ds-text-subtlest);font-size:12px}.sidebar-bottom p{margin:5px 0}.sidebar-bottom strong{color:var(--ds-text-subtle);font-size:12px}
     main{padding:28px 32px 48px;min-width:0;max-width:1700px;width:100%;margin:0 auto;align-self:start}.breadcrumb{font-size:12px;color:var(--ds-text-subtlest);display:flex;align-items:center;gap:9px;margin-bottom:18px}.breadcrumb svg{width:12px;height:12px}.page-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:24px}h1{font-size:26px;line-height:1.4;letter-spacing:-.65px;margin:0 0 5px;font-weight:750}.subtitle{color:var(--ds-text-subtle);margin:0;font-size:13px}.heading-actions{display:flex;gap:8px;flex-shrink:0}
     .button{border:1px solid var(--ds-border);background:var(--ds-surface);color:var(--ds-text);border-radius:6px;min-height:38px;padding:7px 13px;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:550;white-space:nowrap}.button svg{width:17px;height:17px}.button:hover:not(:disabled){background:var(--ds-background-neutral-hovered)}.button.primary{background:var(--ds-background-brand-bold);color:var(--ds-text-inverse);border-color:transparent}.button.primary:hover:not(:disabled){background:var(--ds-background-brand-bold-hovered)}.button.quiet{border-color:transparent;background:transparent;color:var(--ds-text-subtle)}.button.quiet:hover:not(:disabled){background:var(--ds-background-neutral-hovered)}
+    [hidden]{display:none!important}.shared-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 14px;border:1px solid var(--ds-border);border-radius:8px;margin-bottom:18px;background:var(--ds-surface-sunken)}.shared-status{flex:1;min-width:180px;font-size:12px;color:var(--ds-text-subtle)}.shared-bar .button{min-height:34px;font-size:12px}.cell-input:read-only{border-color:transparent;background:transparent;cursor:default}.auth-label{max-width:140px;overflow:hidden;text-overflow:ellipsis}.topbar .button{min-height:34px;font-size:12px}@media(max-width:767px){.topbar{padding-inline:16px;gap:8px}.top-right{gap:8px}.topbar .button{padding-inline:9px}.shared-bar{padding:10px}.shared-status{flex-basis:100%}}
     .startup-notice{padding:16px;margin-bottom:18px;border:1px solid var(--ds-border-focused);border-radius:8px;background:var(--ds-background-selected);color:var(--ds-text)}.startup-notice p{margin:6px 0 0;font-size:13px;line-height:1.8}
     .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:24px;align-items:start}.inventory{min-width:0}.toolbar{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}.search{flex:1;min-width:180px;position:relative}.search svg{position:absolute;left:11px;top:11px;width:17px;height:17px;color:var(--ds-text-subtlest)}.search input{width:100%;height:40px;background:var(--ds-surface);border:1px solid var(--ds-border-input);border-radius:6px;padding:8px 12px 8px 36px;color:var(--ds-text);font-size:13px}.search input::placeholder{color:var(--ds-text-subtlest)}
     .segmented{display:flex;background:var(--ds-surface-sunken);border:1px solid var(--ds-border);border-radius:6px;padding:3px;gap:3px}.segmented button{border:0;background:transparent;color:var(--ds-text-subtle);padding:5px 11px;border-radius:4px;font-size:12px;min-height:32px;white-space:nowrap}.segmented button[aria-pressed="true"]{background:var(--ds-surface);color:var(--ds-text-selected);box-shadow:0 1px 3px #091e421a;font-weight:600}
@@ -104,7 +105,7 @@
   <a class="skip" href="#main">ข้ามไปยังเนื้อหาหลัก</a>
   <header class="topbar">
     <div class="top-left"><a href="#main" class="brand" aria-label="Chui Kitchen หน้ารายการสั่งวัตถุดิบ"><span class="brand-mark" aria-hidden="true">c.</span>chui kitchen</a><span class="product-label">พื้นที่จัดการครัว</span></div>
-    <div class="top-right"><span class="session-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการใหม่ในทุกครั้งที่เปิด</span><button id="theme-toggle" class="icon-button" aria-label="เปลี่ยนเป็นธีมมืด" title="เปลี่ยนธีม"><svg aria-hidden="true"><use href="#i-moon"/></svg></button></div>
+    <div class="top-right"><button id="github-login" class="button"><span class="auth-label" id="github-login-label">Login GitHub</span></button><button id="github-logout" class="button quiet" hidden>ออกจากระบบ</button><span class="session-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการใหม่ในทุกครั้งที่เปิด</span><button id="theme-toggle" class="icon-button" aria-label="เปลี่ยนเป็นธีมมืด" title="เปลี่ยนธีม"><svg aria-hidden="true"><use href="#i-moon"/></svg></button></div>
   </header>
   <div class="shell">
     <aside class="sidebar" aria-label="เมนูหลัก">
@@ -120,17 +121,19 @@
         <p>หน้าพรีวิวไฟล์บน iPhone อาจแสดงได้เฉพาะหน้าตา สำหรับการเลือกวัตถุดิบ ปรับจำนวน และ Export ให้เปิดผ่านลิงก์เว็บไซต์ HTTPS ใน Safari</p>
         <noscript><p>JavaScript ไม่ทำงานในหน้าที่เปิดอยู่ จึงยังแสดงตารางและใช้ปุ่มต่าง ๆ ไม่ได้ ข้อมูลวัตถุดิบยังอยู่ในไฟล์</p></noscript>
       </div>
+      <div class="shared-bar" aria-label="ข้อมูลราคาและหน่วยร่วมกัน"><span class="shared-status" id="shared-status" role="status" aria-live="polite">กำลังโหลดราคาและหน่วยร่วมกัน…</span><button id="reload-shared" class="button">โหลดข้อมูลล่าสุด</button><button id="save-shared" class="button primary" hidden disabled>บันทึกราคาและหน่วย</button></div>
       <div class="content-grid"><div class="inventory">
         <div class="toolbar"><label class="search"><span class="sr-only">ค้นหาวัตถุดิบ</span><svg aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="search" placeholder="ค้นหาชื่อวัตถุดิบ…" autocomplete="off"></label><div class="segmented" role="group" aria-label="กรองรายการ"><button id="view-all" aria-pressed="true">ทั้งหมด</button><button id="view-selected" aria-pressed="false">เลือกแล้ว <span id="filter-count">0</span></button></div></div>
         <div id="catalog"></div>
-        <p class="table-help"><svg aria-hidden="true"><use href="#i-info"/></svg>ปรับจำนวนทีละ 0.5 · ราคาเป็นบาทต่อหน่วย · แก้ไขราคาและหน่วยได้บนหน้าจอใหญ่</p>
+        <p class="table-help"><svg aria-hidden="true"><use href="#i-info"/></svg>ปรับจำนวนทีละ 0.5 · ราคาเป็นบาทต่อหน่วย · Login GitHub เพื่อแก้ราคาและหน่วยบนหน้าจอใหญ่</p>
       </div>
-      <aside class="order-panel" id="order-panel" aria-labelledby="order-heading"><div class="order-head"><h2 id="order-heading"><svg aria-hidden="true"><use href="#i-list"/></svg>รายการของคุณ</h2><span class="count-label" id="order-badge">0 รายการ</span></div><div id="order-content"></div><div class="order-bottom"><div class="order-total"><span>รายการที่เลือกทั้งหมด</span><strong><span id="order-total">0</span> รายการ</strong></div><button class="button primary" id="export-panel" disabled><svg aria-hidden="true"><use href="#i-export"/></svg>Export รายการ</button><p class="order-note">ส่งออกเฉพาะรายการที่เลือก พร้อมจำนวนและหน่วยโล</p></div><div class="share-tip"><strong><svg aria-hidden="true"><use href="#i-airdrop"/></svg>ส่งต่อไป iPhone</strong><p>กด Export แล้วเลือก “แชร์ / AirDrop”<br>หรือดาวน์โหลดไฟล์ .txt เก็บไว้ส่งต่อ</p></div></aside></div>
-      <p class="footer-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการนี้ไม่ถูกบันทึกไว้ · รีเฟรชหน้าเพื่อเริ่มต้นใหม่ รายการกำหนดเองจะถูกล้าง และจำนวนกลับเป็น 1 โล</p>
+      <aside class="order-panel" id="order-panel" aria-labelledby="order-heading"><div class="order-head"><h2 id="order-heading"><svg aria-hidden="true"><use href="#i-list"/></svg>รายการของคุณ</h2><span class="count-label" id="order-badge">0 รายการ</span></div><div id="order-content"></div><div class="order-bottom"><div class="order-total"><span>รายการที่เลือกทั้งหมด</span><strong><span id="order-total">0</span> รายการ</strong></div><button class="button primary" id="export-panel" disabled><svg aria-hidden="true"><use href="#i-export"/></svg>Export รายการ</button><p class="order-note">ส่งออกเฉพาะรายการที่เลือก พร้อมจำนวนและหน่วย</p></div><div class="share-tip"><strong><svg aria-hidden="true"><use href="#i-airdrop"/></svg>ส่งต่อไป iPhone</strong><p>กด Export แล้วเลือก “แชร์ / AirDrop”<br>หรือดาวน์โหลดไฟล์ .txt เก็บไว้ส่งต่อ</p></div></aside></div>
+      <p class="footer-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>ราคาและหน่วยใช้ร่วมกัน · การเลือก จำนวน และรายการกำหนดเองไม่ถูกบันทึก รีเฟรชเพื่อเริ่มรายการใหม่</p>
     </main>
   </div>
   <dialog id="export-dialog" aria-labelledby="export-title" aria-describedby="export-description"><div class="dialog-head"><div><h2 id="export-title">พร้อมส่งรายการสั่งของ</h2><p id="export-description">ตรวจรายการ แล้วเลือกวิธีส่งต่อได้เลย</p></div><button id="close-export" class="icon-button" aria-label="ปิดหน้าส่งออกรายการ"><svg aria-hidden="true"><use href="#i-close"/></svg></button></div><div class="dialog-body"><div class="export-label"><label for="export-text">ข้อความสำหรับสั่งของ</label><span id="export-summary"></span></div><textarea class="export-preview" id="export-text" readonly spellcheck="false"></textarea><div class="dialog-actions"><button class="button primary" id="share"><svg aria-hidden="true"><use href="#i-airdrop"/></svg>แชร์ / AirDrop</button><button class="button" id="download"><svg aria-hidden="true"><use href="#i-download"/></svg>ดาวน์โหลด .txt</button><button class="button" id="copy"><svg aria-hidden="true"><use href="#i-copy"/></svg>คัดลอก</button></div><p id="share-help" class="dialog-tip">AirDrop จะแสดงในเมนูแชร์เมื่ออุปกรณ์และเบราว์เซอร์รองรับ หากไม่พบ ให้ดาวน์โหลด .txt แล้วแชร์ไฟล์ผ่าน Finder</p><p id="export-status" class="dialog-tip" role="status" aria-live="polite"></p></div></dialog>
   <dialog id="reset-dialog" aria-labelledby="reset-title"><div class="dialog-head"><div><h2 id="reset-title">เริ่มรายการใหม่?</h2><p>ลบรายการกำหนดเอง ยกเลิกการเลือกทั้งหมด และคืนจำนวนทุกรายการเป็น 1 โล</p></div></div><div class="dialog-body"><div class="dialog-actions"><button class="button" id="cancel-reset" autofocus>กลับไปเลือกรายการ</button><button class="button primary" id="confirm-reset">เริ่มใหม่</button></div></div></dialog>
+  <dialog id="reload-dialog" aria-labelledby="reload-title"><div class="dialog-head"><div><h2 id="reload-title">โหลดราคาและหน่วยล่าสุด?</h2><p>การแก้ราคาและหน่วยที่ยังไม่ได้บันทึกจะถูกแทนที่ด้วยข้อมูลบน GitHub</p></div></div><div class="dialog-body"><div class="dialog-actions"><button class="button" id="cancel-reload">แก้ไขต่อ</button><button class="button primary" id="confirm-reload">โหลดข้อมูลล่าสุด</button></div></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <script>
     'use strict';
@@ -143,6 +146,9 @@
       ]},
       { id:'custom', title:'กำหนดเอง', description:'เพิ่มวัตถุดิบอื่นที่ต้องการสั่ง', icon:'i-list', names:[] }
     ];
+    const AUTH_BASE="https://chui-kitchen-github-auth.knobbycreek2.chatgpt.site";
+    const DATA_URL="https://api.github.com/repos/Salah1St/chui-kitchen-orders/contents/data.json?ref=main";
+    let githubSession="",githubUser=null,sharedSha="",sharedBusy=false,sharedMessage="",sharedBaseline="";
     // Half-unit integer ticks avoid floating point drift. Session memory only.
     const items = GROUPS.flatMap(group => group.names.map((name,index) => ({ id:`${group.id}-${index}`, group:group.id, name, index, ticks:2, selected:false, priceCents:null, unit:'โล' })));
     const $ = id => document.getElementById(id);
@@ -180,7 +186,7 @@
       if(!/^(?:\d+(?:\.\d{0,2})?|\.\d{1,2})$/.test(text))throw new Error('invalid-price');
       const [whole,fraction='']=text.split('.');
       const cents=Number(whole || '0')*100+Number(fraction.padEnd(2,'0'));
-      if(!Number.isSafeInteger(cents))throw new Error('invalid-price');
+      if(!Number.isSafeInteger(cents)||cents>1000000000000)throw new Error('invalid-price');
       return cents;
     }
     function lineValueCents(item) {
@@ -194,9 +200,9 @@
         <td class="col-select"><label class="check-hit"><input id="check-${item.id}" class="check row-check" type="checkbox" data-id="${item.id}" ${item.selected?'checked':''} aria-label="เลือก ${name} (${group.title})"></label></td>
         <td><label class="item-label" for="check-${item.id}"><span class="row-number">${String(item.index+1).padStart(2,'0')}</span><span>${name}</span></label>${item.group==='custom'?`<button class="remove-item custom-delete" data-delete="${item.id}" aria-label="ลบรายการกำหนดเอง ${name}">${icon('i-close')}</button>`:''}</td>
         <td class="col-quantity"><div class="quantity"><button class="step" data-step="-1" data-id="${item.id}" aria-label="ลด ${name} ทีละ 0.5 ${unit}" ${item.ticks===1?'disabled':''}>${icon('i-down')}</button><input type="number" min="0.5" step="0.5" value="${formatQuantity(item.ticks)}" data-id="${item.id}" class="quantity-input" aria-label="จำนวน ${name} (${group.title}) หน่วย${unit}" inputmode="decimal" autocomplete="off"><button class="step" data-step="1" data-id="${item.id}" aria-label="เพิ่ม ${name} ทีละ 0.5 ${unit}">${icon('i-up')}</button></div></td>
-        <td class="col-price"><input type="number" min="0" step="0.01" value="${priceInputValue(item.priceCents)}" data-id="${item.id}" class="cell-input price-input" inputmode="decimal" placeholder="—" aria-label="ราคา ${name} บาทต่อหน่วย" autocomplete="off"></td>
+        <td class="col-price"><input type="number" min="0" step="0.01" value="${priceInputValue(item.priceCents)}" data-id="${item.id}" class="cell-input price-input" inputmode="decimal" placeholder="—" aria-label="ราคา ${name} บาทต่อหน่วย" autocomplete="off" ${canEditMaster(item)?'':'readonly'}></td>
         <td class="col-value"><span class="line-value" title="${item.priceCents===null?'ยังไม่ระบุราคา':lineValueCents(item)===null?'มูลค่าสูงเกินขอบเขตที่คำนวณได้':'ราคา × จำนวน'}">${formatMoney(lineValueCents(item))}</span></td>
-        <td class="col-unit"><input class="cell-input unit-input" type="text" value="${unit}" data-id="${item.id}" aria-label="หน่วย ${name}" autocomplete="off" maxlength="24"></td>
+        <td class="col-unit"><input class="cell-input unit-input" type="text" value="${unit}" data-id="${item.id}" aria-label="หน่วย ${name}" autocomplete="off" maxlength="24" ${canEditMaster(item)?'':'readonly'}></td>
       </tr>`;
     }
     function updateRowValue(item) {
@@ -205,20 +211,22 @@
     }
     function commitPrice(input) {
       const item=getItem(input.dataset.id);
+      if(!canEditMaster(item)){input.value=priceInputValue(item.priceCents);return;}
       try{item.priceCents=parsePrice(input.value);}
       catch{showToast('กรุณาระบุราคาตั้งแต่ 0 บาท และทศนิยมไม่เกิน 2 ตำแหน่ง');}
       input.value=priceInputValue(item.priceCents);
-      updateRowValue(item);
+      updateRowValue(item);syncSharedUI();
     }
     function commitUnit(input,normalize=true) {
       const item=getItem(input.dataset.id),unit=input.value.trim().replace(/\s+/g,' ');
+      if(!canEditMaster(item)){input.value=item.unit;return;}
       if(!unit){if(normalize){input.value=item.unit;showToast('กรุณาระบุหน่วย เช่น โล ถุง หรือขวด');}return;}
       item.unit=unit;if(normalize)input.value=unit;
       const row=input.closest('tr'),group=GROUPS.find(group=>group.id===item.group);
       row.querySelector('.quantity-input').setAttribute('aria-label',`จำนวน ${item.name} (${group.title}) หน่วย${unit}`);
       row.querySelector('[data-step="-1"]').setAttribute('aria-label',`ลด ${item.name} ทีละ 0.5 ${unit}`);
       row.querySelector('[data-step="1"]').setAttribute('aria-label',`เพิ่ม ${item.name} ทีละ 0.5 ${unit}`);
-      updateSummary();
+      updateSummary();syncSharedUI();
     }
     function renderCatalog() {
       const customDraft=$('custom-name')?.value || '';
@@ -401,7 +409,7 @@
       const input=event.target;
       if(input.id==='custom-name')input.setCustomValidity('');
       else if(input.matches('.price-input')){
-        try{const item=getItem(input.dataset.id);item.priceCents=parsePrice(input.value);updateRowValue(item);}catch{}
+        try{const item=getItem(input.dataset.id);if(canEditMaster(item)){item.priceCents=parsePrice(input.value);updateRowValue(item);syncSharedUI();}}catch{}
       }else if(input.matches('.unit-input')&&!event.isComposing)commitUnit(input,false);
     });
     $('catalog').addEventListener('keydown',event=>{
@@ -465,12 +473,78 @@
     $('confirm-reset').addEventListener('click',()=>{resetAll();$('reset-dialog').close();showToast('เริ่มใหม่แล้ว จำนวนทุกรายการกลับเป็น 1 โล');});
     $('theme-toggle').addEventListener('click',()=>{const dark=document.documentElement.dataset.theme!=='dark';document.documentElement.dataset.theme=dark?'dark':'light';$('theme-toggle').setAttribute('aria-label',`เปลี่ยนเป็นธีม${dark?'สว่าง':'มืด'}`);});
     if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.dataset.theme='dark';$('theme-toggle').setAttribute('aria-label','เปลี่ยนเป็นธีมสว่าง');}
+    const masterItems=()=>items.filter(item=>item.group!=='custom');
+    const masterSnapshot=()=>JSON.stringify(masterItems().map(({id,priceCents,unit})=>({id,priceCents,unit})));
+    const hasSharedChanges=()=>Boolean(sharedBaseline)&&masterSnapshot()!==sharedBaseline;
+    function canEditMaster(item){return !sharedBusy&&(item.group==='custom'||Boolean(githubUser?.canWrite&&sharedSha));}
+    function syncSharedUI(){
+      $('github-login-label').textContent=githubUser?`@${githubUser.login}`:'Login GitHub';
+      $('github-login').disabled=Boolean(githubUser)||sharedBusy;
+      $('github-logout').hidden=!githubUser;
+      $('github-logout').disabled=sharedBusy;
+      $('save-shared').hidden=!githubUser?.canWrite;
+      $('save-shared').disabled=sharedBusy||!sharedSha||!hasSharedChanges();
+      $('reload-shared').disabled=sharedBusy;
+      $('shared-status').textContent=sharedBusy?sharedMessage:hasSharedChanges()?`${sharedMessage} · มีการแก้ไขราคา/หน่วยที่ยังไม่บันทึก`:sharedMessage||'ราคาและหน่วยเป็นข้อมูลร่วมกัน · Login เพื่อแก้ไข';
+      document.querySelectorAll('.price-input,.unit-input').forEach(input=>input.readOnly=!canEditMaster(getItem(input.dataset.id)));
+    }
+    function readSession(){try{return sessionStorage.getItem('chui-github-session')||'';}catch{return '';}}
+    function writeSession(value){githubSession=value;try{if(value)sessionStorage.setItem('chui-github-session',value);else sessionStorage.removeItem('chui-github-session');}catch{}}
+    async function authRequest(path,options={}){
+      const response=await fetch(AUTH_BASE+path,{...options,cache:'no-store',credentials:'omit',headers:{'Authorization':`Bearer ${githubSession}`,...options.headers}});
+      let data;try{data=await response.json();}catch{throw new Error('ติดต่อระบบ Login ไม่สำเร็จ กรุณาลองใหม่');}
+      if(!response.ok){if(response.status===401){writeSession('');githubUser=null;syncSharedUI();}const error=new Error(data.error||'ติดต่อ GitHub ไม่สำเร็จ');error.status=response.status;throw error;}return data;
+    }
+    function applySharedData(data){
+      const list=masterItems();
+      if(data?.schemaVersion!==1||!Array.isArray(data.items)||data.items.length!==list.length)throw new Error('รูปแบบข้อมูลร่วมกันไม่ถูกต้อง');
+      const map=new Map();for(const entry of data.items){if(map.has(entry.id)||!list.some(item=>item.id===entry.id)||!(entry.priceCents===null||(Number.isSafeInteger(entry.priceCents)&&entry.priceCents>=0&&entry.priceCents<=1000000000000))||typeof entry.unit!=='string'||!entry.unit.trim()||entry.unit.length>24||/[\u0000-\u001f\u007f]/.test(entry.unit))throw new Error('ราคาและหน่วยบน GitHub มีรูปแบบไม่ถูกต้อง');map.set(entry.id,entry);}
+      list.forEach(item=>{const entry=map.get(item.id);item.priceCents=entry.priceCents;item.unit=entry.unit;});
+      sharedBaseline=masterSnapshot();
+    }
+    async function loadSharedData(){
+      if(sharedBusy)return;sharedBusy=true;sharedMessage='กำลังโหลดราคาและหน่วยร่วมกัน…';syncSharedUI();
+      try{const response=await fetch(DATA_URL,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}});if(!response.ok)throw new Error('โหลดข้อมูลร่วมกันไม่ได้ ตรวจอินเทอร์เน็ตแล้วกดโหลดใหม่');const file=await response.json();if(!/^[a-f0-9]{40}$/.test(file.sha||''))throw new Error('ข้อมูลบน GitHub ไม่ถูกต้อง');const bytes=Uint8Array.from(atob(file.content.replace(/\s/g,'')),c=>c.charCodeAt(0));applySharedData(JSON.parse(new TextDecoder().decode(bytes)));sharedSha=file.sha;sharedMessage='ราคาและหน่วยล่าสุดจาก GitHub · ทุกคนใช้ข้อมูลชุดเดียวกัน';renderCatalog();updateSummary();}
+      catch(error){sharedMessage=error.message;}
+      finally{sharedBusy=false;syncSharedUI();}
+    }
+    async function initializeSharedData(){
+      const hash=new URLSearchParams(location.hash.slice(1));
+      if(hash.has('chui_session')||hash.has('chui_error')){
+        let expected='';try{expected=sessionStorage.getItem('chui-oauth-state')||'';sessionStorage.removeItem('chui-oauth-state');}catch{}
+        history.replaceState(null,'',location.pathname+location.search);
+        if(expected&&expected===hash.get('chui_state')){if(hash.has('chui_session'))writeSession(hash.get('chui_session'));else showToast('ยกเลิกการเข้าสู่ระบบแล้ว');}else showToast('คำขอเข้าสู่ระบบหมดอายุ กรุณาลองใหม่');
+      }else githubSession=readSession();
+      await loadSharedData();
+      if(githubSession){try{githubUser=await authRequest('/api/session');sharedMessage=githubUser.canWrite?'เข้าสู่ระบบแล้ว · แก้ไขราคา/หน่วยแล้วกดบันทึกเพื่อให้ทุกคนเห็น':'เข้าสู่ระบบแล้ว แต่บัญชีนี้ไม่มีสิทธิ์เขียน Repository';}catch(error){sharedMessage=error.message;}syncSharedUI();}
+    }
+    $('github-login').addEventListener('click',async()=>{
+      if(hasSharedChanges()){showToast('บันทึกการแก้ไขก่อนเข้าสู่ระบบใหม่');return;}
+      try{const response=await fetch(AUTH_BASE+'/health',{cache:'no-store'});if(!response.ok||!(await response.json()).ready)throw new Error('ระบบ Login ยังตั้งค่าไม่ครบ กรุณาติดต่อเจ้าของเว็บ');const nonce=btoa(String.fromCharCode(...crypto.getRandomValues(new Uint8Array(32)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');sessionStorage.setItem('chui-oauth-state',nonce);location.assign(AUTH_BASE+'/auth/start?state='+encodeURIComponent(nonce));}catch(error){showToast(error.message||'เปิด Login ไม่สำเร็จ กรุณาลองใหม่');}
+    });
+    $('github-logout').addEventListener('click',()=>{if(hasSharedChanges()){showToast('บันทึก หรือโหลดข้อมูลล่าสุดเพื่อล้างการแก้ไข ก่อนออกจากระบบ');return;}writeSession('');githubUser=null;sharedMessage='ออกจากระบบแล้ว · ยังเลือกวัตถุดิบและ Export ได้ตามปกติ';syncSharedUI();});
+    $('reload-shared').addEventListener('click',()=>{if(hasSharedChanges())$('reload-dialog').showModal();else loadSharedData();});
+    $('cancel-reload').addEventListener('click',()=>$('reload-dialog').close());
+    $('confirm-reload').addEventListener('click',()=>{$('reload-dialog').close();loadSharedData();});
+    $('save-shared').addEventListener('click',async()=>{
+      if(sharedBusy||!githubUser?.canWrite||!hasSharedChanges())return;
+      for(const input of document.querySelectorAll('.price-input')){try{parsePrice(input.value);}catch{showToast('กรุณาแก้ราคาที่ไม่ถูกต้องก่อนบันทึก');input.focus();return;}}
+      for(const input of document.querySelectorAll('.unit-input')){if(!input.value.trim()){showToast('กรุณาระบุหน่วยก่อนบันทึก');input.focus();return;}}
+      const data={schemaVersion:1,items:masterItems().map(({id,priceCents,unit})=>({id,priceCents,unit}))};
+      sharedBusy=true;sharedMessage='กำลังบันทึกราคาและหน่วยลง GitHub…';syncSharedUI();
+      try{const saved=await authRequest('/api/data',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({sha:sharedSha,data})});sharedSha=saved.sha;applySharedData(saved.data);sharedMessage=`บันทึกแล้วโดย @${saved.data.updatedBy} · คนอื่นกดโหลดข้อมูลล่าสุดเพื่อดูได้`;showToast('บันทึกราคาและหน่วยร่วมกันแล้ว');}
+      catch(error){sharedMessage=error.status===409?'มีคนบันทึกก่อนหน้านี้ · การแก้ไขของคุณยังอยู่ กดโหลดข้อมูลล่าสุดเพื่อเริ่มจากข้อมูลใหม่':error.message;showToast(sharedMessage);}
+      finally{sharedBusy=false;syncSharedUI();}
+    });
+    window.addEventListener('beforeunload',event=>{if(hasSharedChanges()){event.preventDefault();event.returnValue='';}});
+
     window.addEventListener('pagehide',cancelDictation);
     document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelDictation();});
     // Prevent form restoration and back/forward cache from keeping a past order.
     window.addEventListener('pageshow',()=>{if($('export-dialog').open)$('export-dialog').close();if($('reset-dialog').open)$('reset-dialog').close();resetAll();});
     resetAll();
     $('app-startup').hidden=true;
+    initializeSharedData();
   </script>
 </body>
 </html>
