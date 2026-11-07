@@ -210,10 +210,10 @@
       input.value=priceInputValue(item.priceCents);
       updateRowValue(item);
     }
-    function commitUnit(input) {
+    function commitUnit(input,normalize=true) {
       const item=getItem(input.dataset.id),unit=input.value.trim().replace(/\s+/g,' ');
-      if(!unit){input.value=item.unit;showToast('กรุณาระบุหน่วย เช่น โล ถุง หรือขวด');return;}
-      item.unit=unit;input.value=unit;
+      if(!unit){if(normalize){input.value=item.unit;showToast('กรุณาระบุหน่วย เช่น โล ถุง หรือขวด');}return;}
+      item.unit=unit;if(normalize)input.value=unit;
       const row=input.closest('tr'),group=GROUPS.find(group=>group.id===item.group);
       row.querySelector('.quantity-input').setAttribute('aria-label',`จำนวน ${item.name} (${group.title}) หน่วย${unit}`);
       row.querySelector('[data-step="-1"]').setAttribute('aria-label',`ลด ${item.name} ทีละ 0.5 ${unit}`);
@@ -255,7 +255,7 @@
       const oldScroll = document.querySelector('.order-list')?.scrollTop || 0;
       $('order-content').innerHTML = selected.length ? `<div class="order-list">${GROUPS.map(group=>{
         const list = selected.filter(item=>item.group===group.id);
-        return list.length ? `<h3 class="order-group-title">${group.title} · ${list.length}</h3>${list.map(item=>`<div class="order-item"><span>${escapeHTML(item.name)}</span><span class="order-qty">${formatAmount(item.ticks,item.unit)}</span><button class="remove-item" data-remove="${item.id}" aria-label="นำ ${escapeHTML(item.name)} ออกจากรายการ">${icon('i-close')}</button></div>`).join('')}` : '';
+        return list.length ? `<h3 class="order-group-title">${group.title} · ${list.length}</h3>${list.map(item=>`<div class="order-item"><span>${escapeHTML(item.name)}</span><span class="order-qty">${escapeHTML(formatAmount(item.ticks,item.unit))}</span><button class="remove-item" data-remove="${item.id}" aria-label="นำ ${escapeHTML(item.name)} ออกจากรายการ">${icon('i-close')}</button></div>`).join('')}` : '';
       }).join('')}</div>` : `<div class="order-empty"><div class="empty-illustration">${icon('i-bag')}</div><h3>เริ่มจากของที่ต้องใช้</h3><p>ติ๊กเลือกวัตถุดิบจากตาราง<br>รายการและจำนวนจะปรากฏที่นี่</p></div>`;
       const orderList=document.querySelector('.order-list'); if(orderList)orderList.scrollTop=oldScroll;
       syncGroupChecks();
@@ -397,7 +397,13 @@
       const region=document.querySelector('#custom .table-scroll');region.scrollTop=region.scrollHeight;
       showToast(`เพิ่ม ${name} แล้ว`);
     });
-    $('catalog').addEventListener('input',event=>{if(event.target.id==='custom-name')event.target.setCustomValidity('');});
+    $('catalog').addEventListener('input',event=>{
+      const input=event.target;
+      if(input.id==='custom-name')input.setCustomValidity('');
+      else if(input.matches('.price-input')){
+        try{const item=getItem(input.dataset.id);item.priceCents=parsePrice(input.value);updateRowValue(item);}catch{}
+      }else if(input.matches('.unit-input')&&!event.isComposing)commitUnit(input,false);
+    });
     $('catalog').addEventListener('keydown',event=>{
       if(event.target.matches('.price-input,.unit-input')){
         if(event.key==='Enter'){event.preventDefault();event.target.blur();}
