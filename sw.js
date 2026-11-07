@@ -1,6 +1,6 @@
 'use strict';
 // Bump the version whenever an app-shell file changes. IndexedDB is never cleared.
-const CACHE='chui-kitchen-shell-v1';
+const CACHE='chui-kitchen-shell-v2';
 const BASE=new URL('./',self.location.href);
 const FILES=['./','./index.html','./local-data.js','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png'];
 const URLS=FILES.map(path=>new URL(path,BASE).href);
