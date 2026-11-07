@@ -61,15 +61,19 @@
     .custom-form{padding:0 18px 16px}.custom-form label{display:block;font-size:12px;font-weight:550;margin-bottom:6px}.custom-form-fields{display:flex;gap:8px}.custom-form input{min-width:0;flex:1;border:1px solid var(--ds-border-input);border-radius:6px;padding:8px 12px;background:var(--ds-surface);color:var(--ds-text);min-height:40px}.custom-form p{margin:7px 0 0;font-size:11px;color:var(--ds-text-subtlest)}.custom-delete{float:right}td:has(.custom-delete) .item-label{display:inline-flex;max-width:calc(100% - 34px)}
     .voice-button{flex-shrink:0;width:40px;min-height:40px;padding:8px}.voice-button[aria-pressed="true"]{background:var(--ds-background-selected);color:var(--ds-text-selected);border-color:var(--ds-border-focused)}.custom-form .speech-status{color:var(--ds-text-selected);min-height:0}.speech-status:empty{display:none}
     .catalog-section{border:1px solid var(--ds-border);border-radius:8px;margin-bottom:22px;overflow:hidden;scroll-margin-top:84px}.section-head{padding:17px 18px;display:flex;align-items:center;justify-content:space-between;gap:8px}.section-heading{display:flex;align-items:center;gap:10px}.section-symbol{width:32px;height:32px;border:1px solid var(--ds-border);border-radius:6px;display:grid;place-items:center;background:var(--ds-surface-sunken);color:var(--ds-text-subtle)}.section-symbol.makro{font-size:10px;font-weight:800;letter-spacing:-.5px;color:#c9372c}.section-heading h2{font-size:14px;margin:0;font-weight:700}.section-heading p{font-size:11px;color:var(--ds-text-subtlest);margin:1px 0 0}.count-label{font-size:11px;background:var(--ds-background-neutral);color:var(--ds-text-subtle);padding:2px 7px;border-radius:4px;white-space:nowrap;font-variant-numeric:tabular-nums}
-    .table-scroll{max-height:420px;overflow:auto;overscroll-behavior:contain;border-top:1px solid var(--ds-border);scrollbar-width:thin;scrollbar-color:var(--ds-border-input) transparent}.table-scroll:focus-visible{outline-offset:-3px}table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}th{position:sticky;top:0;background:var(--ds-surface-sunken);font-size:11px;color:var(--ds-text-subtle);font-weight:550;text-align:left;z-index:2;border-bottom:1px solid var(--ds-border);padding:10px 12px}th:first-child{width:48px;text-align:center}th:last-child{width:152px;text-align:center}td{padding:10px 12px;border-bottom:1px solid var(--ds-border);height:60px;font-size:13px}tr:last-child td{border-bottom:0}td:first-child{text-align:center}tbody tr:hover{background:var(--ds-background-neutral-hovered)}tbody tr.is-selected{background:var(--ds-background-selected)}.item-label{display:flex;align-items:center;gap:10px;cursor:pointer;word-break:break-word}.row-number{font-size:10px;color:var(--ds-text-subtlest);min-width:18px;font-variant-numeric:tabular-nums}.item-label span:last-child{flex:1}.check{width:17px;height:17px;accent-color:var(--ds-background-brand-bold);cursor:pointer;vertical-align:middle;margin:0}.check-hit{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    .table-scroll{max-height:420px;overflow:auto;overscroll-behavior:contain;border-top:1px solid var(--ds-border);scrollbar-width:thin;scrollbar-color:var(--ds-border-input) transparent}.table-scroll:focus-visible{outline-offset:-3px}table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}th{position:sticky;top:0;background:var(--ds-surface-sunken);font-size:11px;color:var(--ds-text-subtle);font-weight:550;text-align:left;z-index:2;border-bottom:1px solid var(--ds-border);padding:10px 12px}th:first-child{width:48px;text-align:center}td{padding:10px 12px;border-bottom:1px solid var(--ds-border);height:60px;font-size:13px}tr:last-child td{border-bottom:0}td:first-child{text-align:center}tbody tr:hover{background:var(--ds-background-neutral-hovered)}tbody tr.is-selected{background:var(--ds-background-selected)}.item-label{display:flex;align-items:center;gap:10px;cursor:pointer;word-break:break-word}.row-number{font-size:10px;color:var(--ds-text-subtlest);min-width:18px;font-variant-numeric:tabular-nums}.item-label span:last-child{flex:1}.check{width:17px;height:17px;accent-color:var(--ds-background-brand-bold);cursor:pointer;vertical-align:middle;margin:0}.check-hit{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+    table{min-width:680px}.col-select{width:44px}.col-quantity{width:144px;text-align:center}.col-price{width:112px}.col-value{width:108px;text-align:right}.col-unit{width:88px}td.col-quantity{padding-inline:8px}.cell-input{width:100%;min-width:0;min-height:36px;padding:6px 8px;border:1px solid var(--ds-border-input);border-radius:5px;background:var(--ds-surface);color:var(--ds-text);font-size:13px}.price-input{text-align:right;font-variant-numeric:tabular-nums}.line-value{font-variant-numeric:tabular-nums;overflow-wrap:anywhere;font-weight:550}
+    @media(max-width:1023px){table{min-width:0}.col-price,.col-unit{display:none}.col-select{width:36px}th:first-child{width:36px}.col-quantity{width:132px}.col-value{width:86px}}
+    @media(max-width:767px){th:first-child{width:32px}.col-quantity{width:112px}.col-value{width:72px}td.col-quantity{padding-inline:4px}.col-value{padding-inline:5px}.line-value{font-size:12px}}
     .quantity{display:flex;align-items:center;justify-content:center;gap:4px}.quantity input{width:52px;min-width:0;height:34px;border:1px solid var(--ds-border-input);border-radius:5px;text-align:center;background:var(--ds-surface);color:var(--ds-text);font-size:13px;font-variant-numeric:tabular-nums;appearance:textfield;-moz-appearance:textfield}.quantity input::-webkit-inner-spin-button,.quantity input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}.step{display:grid;place-items:center;width:32px;height:34px;padding:0;background:var(--ds-surface);border:1px solid var(--ds-border);border-radius:5px;color:var(--ds-text-subtle)}.step:hover:not(:disabled){background:var(--ds-background-neutral-hovered);border-color:var(--ds-border-input)}.step svg{width:14px;height:14px}.empty-row{text-align:center!important;color:var(--ds-text-subtle);height:130px}.section-footer{background:var(--ds-surface);border-top:1px solid var(--ds-border);padding:9px 17px;font-size:11px;color:var(--ds-text-subtlest);display:flex;justify-content:space-between;gap:8px}.table-help{font-size:11px;color:var(--ds-text-subtlest);margin:2px 0 0;display:flex;gap:6px;align-items:center}.table-help svg{width:14px;height:14px;flex-shrink:0}
     .order-panel{border:1px solid var(--ds-border);border-radius:8px;position:sticky;top:88px;overflow:hidden}.order-head{padding:18px;border-bottom:1px solid var(--ds-border);display:flex;align-items:center;justify-content:space-between}.order-head h2{font-size:14px;margin:0;display:flex;gap:8px;align-items:center}.order-head svg{width:17px;height:17px;color:var(--ds-text-subtle)}.order-empty{padding:34px 20px;text-align:center}.empty-illustration{width:58px;height:58px;background:var(--ds-surface-sunken);border:1px solid var(--ds-border);border-radius:12px;margin:0 auto 15px;display:grid;place-items:center;color:var(--ds-text-subtlest)}.empty-illustration svg{width:27px;height:27px}.order-empty h3{font-size:13px;font-weight:600;margin:0 0 6px}.order-empty p{color:var(--ds-text-subtlest);font-size:12px;margin:0;line-height:1.8}.order-list{max-height:380px;overflow:auto;padding:0 18px;scrollbar-width:thin}.order-group-title{font-size:10px;color:var(--ds-text-subtlest);letter-spacing:.4px;margin:18px 0 6px;font-weight:650}.order-item{display:flex;align-items:center;gap:8px;justify-content:space-between;font-size:12px;padding:9px 0;border-bottom:1px solid var(--ds-border)}.order-item:last-child{border-bottom:0}.order-item span:first-child{flex:1;word-break:break-word}.order-qty{font-weight:650;font-variant-numeric:tabular-nums;flex-shrink:0;background:var(--ds-surface-sunken);padding:1px 7px;border-radius:4px}.remove-item{border:0;background:transparent;color:var(--ds-text-subtlest);width:28px;height:28px;display:grid;place-items:center;border-radius:4px;padding:0}.remove-item:hover{background:var(--ds-background-neutral-hovered)}.remove-item svg{width:13px;height:13px}.order-bottom{padding:16px 18px 18px;border-top:1px solid var(--ds-border)}.order-total{display:flex;justify-content:space-between;font-size:12px;margin-bottom:12px;color:var(--ds-text-subtle)}.order-total strong{color:var(--ds-text);font-variant-numeric:tabular-nums}.order-bottom .button{width:100%}.order-note{font-size:10px;color:var(--ds-text-subtlest);text-align:center;margin:9px 0 0}.share-tip{padding:16px 18px;background:var(--ds-surface-sunken);border-top:1px solid var(--ds-border);font-size:11px;color:var(--ds-text-subtle)}.share-tip strong{display:flex;align-items:center;gap:6px;color:var(--ds-text);font-weight:550;margin-bottom:5px}.share-tip svg{width:15px;height:15px}.share-tip p{margin:0;line-height:1.8}.footer-note{margin-top:22px;color:var(--ds-text-subtlest);font-size:11px;display:flex;align-items:center;gap:6px}.footer-note svg{width:14px;height:14px}
     dialog{width:min(560px,calc(100% - 32px));max-height:calc(100dvh - 40px);padding:0;border:1px solid var(--ds-border);border-radius:12px;background:var(--ds-surface-overlay);color:var(--ds-text);box-shadow:var(--app-shadow)}dialog::backdrop{background:var(--ds-blanket)}.dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:24px 24px 0}.dialog-head h2{font-size:20px;margin:0 0 5px;letter-spacing:-.3px}.dialog-head p{font-size:12px;color:var(--ds-text-subtle);margin:0}.dialog-body{padding:20px 24px 24px}.export-preview{width:100%;height:230px;resize:vertical;border:1px solid var(--ds-border-input);border-radius:6px;background:var(--ds-surface-sunken);color:var(--ds-text);padding:14px;font:13px/1.9 var(--app-font)}.export-label{display:flex;justify-content:space-between;gap:8px;font-size:11px;margin-bottom:8px;color:var(--ds-text-subtle)}.dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.dialog-actions .primary{flex:1}.dialog-tip{font-size:11px;color:var(--ds-text-subtlest);margin:13px 0 0;line-height:1.8}.toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ds-text);color:var(--ds-surface);border-radius:8px;padding:11px 18px;font-size:13px;box-shadow:var(--app-shadow);max-width:calc(100vw - 32px);width:max-content;transition:opacity .15s,transform .15s;z-index:100}.toast.visible{opacity:1;transform:translate(-50%,0)}
     @media(min-width:1500px){.content-grid{grid-template-columns:minmax(0,1fr) 320px}main{padding:32px 40px}.table-scroll{max-height:460px}}
     @media(max-width:1199px){.shell{grid-template-columns:190px minmax(0,1fr)}main{padding:24px}.content-grid{grid-template-columns:minmax(0,1fr) 260px;gap:16px}.sidebar{padding:26px 10px}.product-label{display:none}.page-heading{align-items:flex-start}.heading-actions .reset-label{display:none}.heading-actions .button.quiet{padding:9px}h1{font-size:24px}}
     @media(max-width:1023px){.shell{grid-template-columns:1fr}.sidebar{display:none}.content-grid{grid-template-columns:minmax(0,1fr)}.order-panel{display:none}.topbar{padding:0 24px}}
-    @media(max-width:767px){html{scroll-padding-top:80px}.topbar{height:56px;padding:0 16px}.brand{font-size:14px}.brand-mark{width:28px;height:28px;font-size:18px}.session-note{display:none}main{padding:22px 16px 36px}.breadcrumb{font-size:11px;margin-bottom:14px}.page-heading{flex-direction:column;gap:15px;margin-bottom:20px}.heading-actions{width:100%}.heading-actions .primary{flex:1}.heading-actions .reset-label{display:inline}.heading-actions .button.quiet{border:1px solid var(--ds-border);padding:8px 12px}h1{font-size:24px}.subtitle{font-size:12px}.content-grid{grid-template-columns:1fr;gap:20px}.toolbar{gap:8px}.search{flex-basis:100%}.segmented{flex:1}.segmented button{flex:1}.section-head{padding:14px 12px}th:first-child{width:40px}th:last-child{width:150px}th,td{padding:10px 8px}.row-number{display:none}.table-scroll{max-height:400px}.order-list{max-height:300px}.order-empty{padding:24px}.share-tip{padding:14px 18px}.footer-note{align-items:flex-start}.dialog-head{padding:20px 18px 0}.dialog-body{padding:18px}.dialog-head h2{font-size:18px}.dialog-actions .primary{flex-basis:100%}.dialog-actions .button:not(.primary){flex:1}.toast{bottom:16px;font-size:12px}}
+    @media(max-width:767px){html{scroll-padding-top:80px}.topbar{height:56px;padding:0 16px}.brand{font-size:14px}.brand-mark{width:28px;height:28px;font-size:18px}.session-note{display:none}main{padding:22px 16px 36px}.breadcrumb{font-size:11px;margin-bottom:14px}.page-heading{flex-direction:column;gap:15px;margin-bottom:20px}.heading-actions{width:100%}.heading-actions .primary{flex:1}.heading-actions .reset-label{display:inline}.heading-actions .button.quiet{border:1px solid var(--ds-border);padding:8px 12px}h1{font-size:24px}.subtitle{font-size:12px}.content-grid{grid-template-columns:1fr;gap:20px}.toolbar{gap:8px}.search{flex-basis:100%}.segmented{flex:1}.segmented button{flex:1}.section-head{padding:14px 12px}th:first-child{width:40px}th,td{padding:10px 8px}.row-number{display:none}.table-scroll{max-height:400px}.order-list{max-height:300px}.order-empty{padding:24px}.share-tip{padding:14px 18px}.footer-note{align-items:flex-start}.dialog-head{padding:20px 18px 0}.dialog-body{padding:18px}.dialog-head h2{font-size:18px}.dialog-actions .primary{flex-basis:100%}.dialog-actions .button:not(.primary){flex:1}.toast{bottom:16px;font-size:12px}}
     @media(pointer:coarse){.button,.icon-button{min-height:44px}.step{height:44px;width:36px}.quantity input{height:44px;width:48px}.check-hit{min-height:44px;width:36px}.remove-item{width:44px;height:44px}.segmented button{min-height:38px}}
+    @media(max-width:767px){.quantity{gap:2px}.quantity input{width:40px;font-size:16px}.step{width:28px;min-width:28px}.check-hit{width:28px}.custom-form input{font-size:16px}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.toast{transition:none}}
   </style>
 </head>
@@ -119,7 +123,7 @@
       <div class="content-grid"><div class="inventory">
         <div class="toolbar"><label class="search"><span class="sr-only">ค้นหาวัตถุดิบ</span><svg aria-hidden="true"><use href="#i-search"/></svg><input type="search" id="search" placeholder="ค้นหาชื่อวัตถุดิบ…" autocomplete="off"></label><div class="segmented" role="group" aria-label="กรองรายการ"><button id="view-all" aria-pressed="true">ทั้งหมด</button><button id="view-selected" aria-pressed="false">เลือกแล้ว <span id="filter-count">0</span></button></div></div>
         <div id="catalog"></div>
-        <p class="table-help"><svg aria-hidden="true"><use href="#i-info"/></svg>ใช้ลูกศรขึ้น / ลงเพื่อปรับทีละ 0.5 โล หรือพิมพ์จำนวนเองได้ · หน่วยเป็นโลทุกรายการ</p>
+        <p class="table-help"><svg aria-hidden="true"><use href="#i-info"/></svg>ปรับจำนวนทีละ 0.5 · ราคาเป็นบาทต่อหน่วย · แก้ไขราคาและหน่วยได้บนหน้าจอใหญ่</p>
       </div>
       <aside class="order-panel" id="order-panel" aria-labelledby="order-heading"><div class="order-head"><h2 id="order-heading"><svg aria-hidden="true"><use href="#i-list"/></svg>รายการของคุณ</h2><span class="count-label" id="order-badge">0 รายการ</span></div><div id="order-content"></div><div class="order-bottom"><div class="order-total"><span>รายการที่เลือกทั้งหมด</span><strong><span id="order-total">0</span> รายการ</strong></div><button class="button primary" id="export-panel" disabled><svg aria-hidden="true"><use href="#i-export"/></svg>Export รายการ</button><p class="order-note">ส่งออกเฉพาะรายการที่เลือก พร้อมจำนวนและหน่วยโล</p></div><div class="share-tip"><strong><svg aria-hidden="true"><use href="#i-airdrop"/></svg>ส่งต่อไป iPhone</strong><p>กด Export แล้วเลือก “แชร์ / AirDrop”<br>หรือดาวน์โหลดไฟล์ .txt เก็บไว้ส่งต่อ</p></div></aside></div>
       <p class="footer-note"><svg aria-hidden="true"><use href="#i-clock"/></svg>รายการนี้ไม่ถูกบันทึกไว้ · รีเฟรชหน้าเพื่อเริ่มต้นใหม่ รายการกำหนดเองจะถูกล้าง และจำนวนกลับเป็น 1 โล</p>
@@ -140,15 +144,15 @@
       { id:'custom', title:'กำหนดเอง', description:'เพิ่มวัตถุดิบอื่นที่ต้องการสั่ง', icon:'i-list', names:[] }
     ];
     // Half-unit integer ticks avoid floating point drift. Session memory only.
-    const items = GROUPS.flatMap(group => group.names.map((name,index) => ({ id:`${group.id}-${index}`, group:group.id, name, index, ticks:2, selected:false })));
+    const items = GROUPS.flatMap(group => group.names.map((name,index) => ({ id:`${group.id}-${index}`, group:group.id, name, index, ticks:2, selected:false, priceCents:null, unit:'โล' })));
     const $ = id => document.getElementById(id);
     const icon = name => `<svg aria-hidden="true"><use href="#${name}"/></svg>`;
     const escapeHTML = text => String(text).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
     const formatQuantity = ticks => String(ticks / 2);
-    const formatAmount = ticks => {
-      if (ticks === 1) return 'ครึ่งโล';
+    const formatAmount = (ticks,unit='โล') => {
+      if (ticks === 1) return `ครึ่ง${unit}`;
       const whole = Math.floor(ticks / 2);
-      return `${whole} โล${ticks % 2 ? ' ครึ่ง' : ''}`;
+      return `${whole} ${unit}${ticks % 2 ? ' ครึ่ง' : ''}`;
     };
     let nextCustomId = 0;
     const SpeechRecognizer = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -165,7 +169,56 @@
       return items.filter(item => item.group === groupId && (!selectedOnly || item.selected) && item.name.normalize('NFC').toLocaleLowerCase('th').includes(query));
     }
     function buildExportText() {
-      return getSelected().map(item => `${item.name} ${formatAmount(item.ticks)}`).join('\n');
+      return getSelected().map(item => `${item.name} ${formatAmount(item.ticks,item.unit)}`).join('\n');
+    }
+    const moneyFormatter=new Intl.NumberFormat('th-TH',{style:'currency',currency:'THB'});
+    const formatMoney=cents=>cents===null?'—':moneyFormatter.format(cents/100);
+    const priceInputValue=cents=>cents===null?'':(cents/100).toFixed(2);
+    function parsePrice(value) {
+      const text=value.trim();
+      if(!text)return null;
+      if(!/^(?:\d+(?:\.\d{0,2})?|\.\d{1,2})$/.test(text))throw new Error('invalid-price');
+      const [whole,fraction='']=text.split('.');
+      const cents=Number(whole || '0')*100+Number(fraction.padEnd(2,'0'));
+      if(!Number.isSafeInteger(cents))throw new Error('invalid-price');
+      return cents;
+    }
+    function lineValueCents(item) {
+      if(item.priceCents===null)return null;
+      const product=item.priceCents*item.ticks;
+      return Number.isSafeInteger(product)?Math.round(product/2):null;
+    }
+    function renderItemRow(item,group) {
+      const name=escapeHTML(item.name),unit=escapeHTML(item.unit);
+      return `<tr data-row="${item.id}" class="${item.selected?'is-selected':''}">
+        <td class="col-select"><label class="check-hit"><input id="check-${item.id}" class="check row-check" type="checkbox" data-id="${item.id}" ${item.selected?'checked':''} aria-label="เลือก ${name} (${group.title})"></label></td>
+        <td><label class="item-label" for="check-${item.id}"><span class="row-number">${String(item.index+1).padStart(2,'0')}</span><span>${name}</span></label>${item.group==='custom'?`<button class="remove-item custom-delete" data-delete="${item.id}" aria-label="ลบรายการกำหนดเอง ${name}">${icon('i-close')}</button>`:''}</td>
+        <td class="col-quantity"><div class="quantity"><button class="step" data-step="-1" data-id="${item.id}" aria-label="ลด ${name} ทีละ 0.5 ${unit}" ${item.ticks===1?'disabled':''}>${icon('i-down')}</button><input type="number" min="0.5" step="0.5" value="${formatQuantity(item.ticks)}" data-id="${item.id}" class="quantity-input" aria-label="จำนวน ${name} (${group.title}) หน่วย${unit}" inputmode="decimal" autocomplete="off"><button class="step" data-step="1" data-id="${item.id}" aria-label="เพิ่ม ${name} ทีละ 0.5 ${unit}">${icon('i-up')}</button></div></td>
+        <td class="col-price"><input type="number" min="0" step="0.01" value="${priceInputValue(item.priceCents)}" data-id="${item.id}" class="cell-input price-input" inputmode="decimal" placeholder="—" aria-label="ราคา ${name} บาทต่อหน่วย" autocomplete="off"></td>
+        <td class="col-value"><span class="line-value" title="${item.priceCents===null?'ยังไม่ระบุราคา':lineValueCents(item)===null?'มูลค่าสูงเกินขอบเขตที่คำนวณได้':'ราคา × จำนวน'}">${formatMoney(lineValueCents(item))}</span></td>
+        <td class="col-unit"><input class="cell-input unit-input" type="text" value="${unit}" data-id="${item.id}" aria-label="หน่วย ${name}" autocomplete="off" maxlength="24"></td>
+      </tr>`;
+    }
+    function updateRowValue(item) {
+      const value=document.querySelector(`[data-row="${item.id}"] .line-value`);
+      if(value){value.textContent=formatMoney(lineValueCents(item));value.title=item.priceCents===null?'ยังไม่ระบุราคา':lineValueCents(item)===null?'มูลค่าสูงเกินขอบเขตที่คำนวณได้':'ราคา × จำนวน';}
+    }
+    function commitPrice(input) {
+      const item=getItem(input.dataset.id);
+      try{item.priceCents=parsePrice(input.value);}
+      catch{showToast('กรุณาระบุราคาตั้งแต่ 0 บาท และทศนิยมไม่เกิน 2 ตำแหน่ง');}
+      input.value=priceInputValue(item.priceCents);
+      updateRowValue(item);
+    }
+    function commitUnit(input) {
+      const item=getItem(input.dataset.id),unit=input.value.trim().replace(/\s+/g,' ');
+      if(!unit){input.value=item.unit;showToast('กรุณาระบุหน่วย เช่น โล ถุง หรือขวด');return;}
+      item.unit=unit;input.value=unit;
+      const row=input.closest('tr'),group=GROUPS.find(group=>group.id===item.group);
+      row.querySelector('.quantity-input').setAttribute('aria-label',`จำนวน ${item.name} (${group.title}) หน่วย${unit}`);
+      row.querySelector('[data-step="-1"]').setAttribute('aria-label',`ลด ${item.name} ทีละ 0.5 ${unit}`);
+      row.querySelector('[data-step="1"]').setAttribute('aria-label',`เพิ่ม ${item.name} ทีละ 0.5 ${unit}`);
+      updateSummary();
     }
     function renderCatalog() {
       const customDraft=$('custom-name')?.value || '';
@@ -174,8 +227,8 @@
         const visible = visibleItems(group.id);
         const groupItems = items.filter(item=>item.group===group.id);
         const selected = items.filter(item => item.group === group.id && item.selected).length;
-        const rows = visible.map(item => `<tr data-row="${item.id}" class="${item.selected ? 'is-selected' : ''}"><td><label class="check-hit"><input class="check row-check" type="checkbox" data-id="${item.id}" ${item.selected?'checked':''} aria-label="เลือก ${escapeHTML(item.name)} (${group.title})"></label></td><td><label class="item-label" for="check-${item.id}"><span class="row-number">${String(item.index+1).padStart(2,'0')}</span><span>${escapeHTML(item.name)}</span></label>${item.group==='custom'?`<button class="remove-item custom-delete" data-delete="${item.id}" aria-label="ลบรายการกำหนดเอง ${escapeHTML(item.name)}">${icon('i-close')}</button>`:''}</td><td><div class="quantity"><button class="step" data-step="-1" data-id="${item.id}" aria-label="ลด ${escapeHTML(item.name)} ทีละ 0.5 โล" ${item.ticks===1?'disabled':''}>${icon('i-down')}</button><input type="number" min="0.5" step="0.5" value="${formatQuantity(item.ticks)}" data-id="${item.id}" class="quantity-input" aria-label="จำนวน ${escapeHTML(item.name)} (${group.title}) หน่วยโล" inputmode="decimal" autocomplete="off"><button class="step" data-step="1" data-id="${item.id}" aria-label="เพิ่ม ${escapeHTML(item.name)} ทีละ 0.5 โล">${icon('i-up')}</button></div></td></tr>`).join('');
-        return `<section class="catalog-section" id="${group.id}" aria-labelledby="heading-${group.id}"><div class="section-head"><div class="section-heading"><span class="section-symbol ${group.id==='makro'?'makro':''}">${group.id==='makro'?'M':icon(group.icon)}</span><div><h2 id="heading-${group.id}">${group.title}</h2><p>${group.description}</p></div></div><span class="count-label">${groupItems.length} รายการ</span></div>${group.id==='custom'?`<form class="custom-form" id="custom-form"><label for="custom-name">ชื่อวัตถุดิบ</label><div class="custom-form-fields"><input id="custom-name" name="name" type="text" placeholder="เช่น เห็ดออรินจิ" autocomplete="off" aria-describedby="speech-status" required><button id="custom-mic" class="button voice-button" type="button" aria-label="พูดชื่อวัตถุดิบ" aria-pressed="false" title="พูดชื่อวัตถุดิบภาษาไทย">${icon('i-mic')}</button><button id="custom-add" class="button" type="submit">เพิ่มรายการ</button></div><p>เพิ่มแล้วเลือกให้อัตโนมัติ · เริ่มต้น 1 โล · กดไมค์เพื่อพูดชื่อ</p><p id="speech-status" class="speech-status" role="status" aria-live="polite"></p></form>`:''}<div class="table-scroll" tabindex="0" role="region" aria-label="ตาราง${group.title} เลื่อนเพื่อดูรายการทั้งหมด"><table><caption class="sr-only">${group.title} เลือกวัตถุดิบและระบุจำนวนครั้งละ 0.5 โล</caption><thead><tr><th scope="col"><label class="check-hit"><input class="check group-check" type="checkbox" data-group="${group.id}" aria-label="เลือกทั้งหมดที่แสดงใน${group.title}" ${visible.length?'':'disabled'}></label></th><th scope="col">ชื่อวัตถุดิบ</th><th scope="col">จำนวน (โล)</th></tr></thead><tbody>${rows || '<tr><td colspan="3" class="empty-row">'+(group.id==='custom'&&!groupItems.length?'ยังไม่มีรายการกำหนดเอง เพิ่มชื่อวัตถุดิบได้ด้านบน':'ไม่พบรายการ'+(selectedOnly?'ที่เลือก':'ตามคำค้นนี้'))+'</td></tr>'}</tbody></table></div><div class="section-footer"><span>แสดง ${visible.length} จาก ${groupItems.length} รายการ</span><span id="count-${group.id}">เลือกแล้ว ${selected} รายการ</span></div></section>`;
+        const rows = visible.map(item => renderItemRow(item,group)).join('');
+        return `<section class="catalog-section" id="${group.id}" aria-labelledby="heading-${group.id}"><div class="section-head"><div class="section-heading"><span class="section-symbol ${group.id==='makro'?'makro':''}">${group.id==='makro'?'M':icon(group.icon)}</span><div><h2 id="heading-${group.id}">${group.title}</h2><p>${group.description}</p></div></div><span class="count-label">${groupItems.length} รายการ</span></div>${group.id==='custom'?`<form class="custom-form" id="custom-form"><label for="custom-name">ชื่อวัตถุดิบ</label><div class="custom-form-fields"><input id="custom-name" name="name" type="text" placeholder="เช่น เห็ดออรินจิ" autocomplete="off" aria-describedby="speech-status" required><button id="custom-mic" class="button voice-button" type="button" aria-label="พูดชื่อวัตถุดิบ" aria-pressed="false" title="พูดชื่อวัตถุดิบภาษาไทย">${icon('i-mic')}</button><button id="custom-add" class="button" type="submit">เพิ่มรายการ</button></div><p>เพิ่มแล้วเลือกให้อัตโนมัติ · เริ่มต้น 1 โล · กดไมค์เพื่อพูดชื่อ</p><p id="speech-status" class="speech-status" role="status" aria-live="polite"></p></form>`:''}<div class="table-scroll" tabindex="0" role="region" aria-label="ตาราง${group.title} เลื่อนเพื่อดูรายการทั้งหมด"><table><caption class="sr-only">${group.title} เลือกวัตถุดิบและระบุจำนวนครั้งละ 0.5 พร้อมราคา มูลค่า และหน่วย</caption><thead><tr><th scope="col" class="col-select"><label class="check-hit"><input class="check group-check" type="checkbox" data-group="${group.id}" aria-label="เลือกทั้งหมดที่แสดงใน${group.title}" ${visible.length?'':'disabled'}></label></th><th scope="col">ชื่อวัตถุดิบ</th><th scope="col" class="col-quantity">จำนวน</th><th scope="col" class="col-price">ราคา<br>(บาท/หน่วย)</th><th scope="col" class="col-value">มูลค่า<br>(บาท)</th><th scope="col" class="col-unit">หน่วย</th></tr></thead><tbody>${rows || '<tr><td colspan="6" class="empty-row">'+(group.id==='custom'&&!groupItems.length?'ยังไม่มีรายการกำหนดเอง เพิ่มชื่อวัตถุดิบได้ด้านบน':'ไม่พบรายการ'+(selectedOnly?'ที่เลือก':'ตามคำค้นนี้'))+'</td></tr>'}</tbody></table></div><div class="section-footer"><span>แสดง ${visible.length} จาก ${groupItems.length} รายการ</span><span id="count-${group.id}">เลือกแล้ว ${selected} รายการ</span></div></section>`;
       }).join('');
       $('custom-name').value=customDraft;
       syncSpeechUI();
@@ -202,7 +255,7 @@
       const oldScroll = document.querySelector('.order-list')?.scrollTop || 0;
       $('order-content').innerHTML = selected.length ? `<div class="order-list">${GROUPS.map(group=>{
         const list = selected.filter(item=>item.group===group.id);
-        return list.length ? `<h3 class="order-group-title">${group.title} · ${list.length}</h3>${list.map(item=>`<div class="order-item"><span>${escapeHTML(item.name)}</span><span class="order-qty">${formatAmount(item.ticks)}</span><button class="remove-item" data-remove="${item.id}" aria-label="นำ ${escapeHTML(item.name)} ออกจากรายการ">${icon('i-close')}</button></div>`).join('')}` : '';
+        return list.length ? `<h3 class="order-group-title">${group.title} · ${list.length}</h3>${list.map(item=>`<div class="order-item"><span>${escapeHTML(item.name)}</span><span class="order-qty">${formatAmount(item.ticks,item.unit)}</span><button class="remove-item" data-remove="${item.id}" aria-label="นำ ${escapeHTML(item.name)} ออกจากรายการ">${icon('i-close')}</button></div>`).join('')}` : '';
       }).join('')}</div>` : `<div class="order-empty"><div class="empty-illustration">${icon('i-bag')}</div><h3>เริ่มจากของที่ต้องใช้</h3><p>ติ๊กเลือกวัตถุดิบจากตาราง<br>รายการและจำนวนจะปรากฏที่นี่</p></div>`;
       const orderList=document.querySelector('.order-list'); if(orderList)orderList.scrollTop=oldScroll;
       syncGroupChecks();
@@ -293,6 +346,7 @@
       item.ticks=ticks;
       const row=document.querySelector(`[data-row="${item.id}"]`);
       if(row){ row.querySelector('.quantity-input').value=formatQuantity(ticks); row.querySelector('[data-step="-1"]').disabled=ticks===1; }
+      updateRowValue(item);
       updateSummary();
     }
     function commitQuantity(input) {
@@ -300,7 +354,7 @@
       const number=Number(input.value);
       const ticks=number*2;
       if(!input.value.trim() || !Number.isFinite(number) || !Number.isSafeInteger(ticks) || ticks<1){
-        input.value=formatQuantity(item.ticks); showToast('กรุณาระบุจำนวนตั้งแต่ 0.5 โล และเพิ่มทีละ 0.5 โล'); return false;
+        input.value=formatQuantity(item.ticks); showToast('กรุณาระบุจำนวนตั้งแต่ 0.5 และเพิ่มทีละ 0.5 ตามหน่วย'); return false;
       }
       updateQuantity(item,ticks); return true;
     }
@@ -315,6 +369,8 @@
         visibleItems(target.dataset.group).forEach(item=>item.selected=target.checked);
         const group=target.dataset.group; renderCatalog(); updateSummary();focusGroupControl(group);
       } else if(target.matches('.quantity-input')) commitQuantity(target);
+      else if(target.matches('.price-input')) commitPrice(target);
+      else if(target.matches('.unit-input')) commitUnit(target);
     });
     function focusGroupControl(group){const control=document.querySelector(`#${group} .group-check`);(control.disabled?$('view-selected'):control).focus({preventScroll:true});}
     $('catalog').addEventListener('click',event=>{
@@ -336,13 +392,17 @@
       if(speechSession){showToast('หยุดรับเสียงก่อนเพิ่มรายการ');return;}
       const name=$('custom-name').value.trim().replace(/\s+/g,' ');
       if(!name){$('custom-name').setCustomValidity('กรุณาระบุชื่อวัตถุดิบ');$('custom-name').reportValidity();return;}
-      items.push({id:`custom-${nextCustomId}`,group:'custom',name,index:nextCustomId++,ticks:2,selected:true});
+      items.push({id:`custom-${nextCustomId}`,group:'custom',name,index:nextCustomId++,ticks:2,selected:true,priceCents:null,unit:'โล'});
       speechMessage='';$('search').value='';$('custom-name').value='';renderCatalog();updateSummary();$('custom-name').focus({preventScroll:true});
       const region=document.querySelector('#custom .table-scroll');region.scrollTop=region.scrollHeight;
       showToast(`เพิ่ม ${name} แล้ว`);
     });
     $('catalog').addEventListener('input',event=>{if(event.target.id==='custom-name')event.target.setCustomValidity('');});
     $('catalog').addEventListener('keydown',event=>{
+      if(event.target.matches('.price-input,.unit-input')){
+        if(event.key==='Enter'){event.preventDefault();event.target.blur();}
+        return;
+      }
       if(!event.target.matches('.quantity-input'))return;
       if(event.key==='Enter'){event.preventDefault();commitQuantity(event.target);}
       if(event.key==='Escape'){event.target.value=formatQuantity(getItem(event.target.dataset.id).ticks);event.target.blur();}
